@@ -1,0 +1,42 @@
+{
+  "name": "ai-ctrf",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts --fix",
+    "lint-check": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
+  },
+  "bin": {
+    "ai-ctrf": "./dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "keywords": [],
+  "author": "Matthew Thomas",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/yargs": "^17.0.32",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "^40.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.3.1",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^3.1.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "openai": "^4.57.0",
+    "yargs": "^17.7.2"
+  }
+}

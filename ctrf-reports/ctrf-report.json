@@ -1,0 +1,87 @@
+{
+  "results": {
+    "tool": {
+      "name": "jest"
+    },
+    "summary": {
+      "tests": 121,
+      "passed": 121,
+      "failed": 0,
+      "pending": 1,
+      "skipped": 0,
+      "other": 1,
+      "start": 1722511783500,
+      "stop": 1722511804528
+    },
+    "tests": [
+      {
+        "name": "should be able to login",
+        "status": "passed",
+        "duration": 1200
+      },
+      {
+        "name": "should display profile information",
+        "status": "failed",
+        "duration": 800,
+        "message": "Assertion Failure: profile mismatch",
+        "trace": "ProfileTest.js:45",
+        "ai": "The test failed because there was a profile mismatch at line 45 of the ProfileTest.js file. To resolve this issue, review the code at line 45 to ensure that the expected profile information matches the actual data being displayed. Check for any discrepancies and make necessary adjustments to align the expected and actual profile information."
+      },
+      {
+        "name": "should be able to update profile",
+        "status": "passed",
+        "duration": 1200,
+        "flaky": true,
+        "retries": 2
+      },
+      {
+        "name": "should be able to logout",
+        "status": "skipped",
+        "duration": 0
+      },
+      {
+        "name": "should validate user settings",
+        "status": "passed",
+        "duration": 1100
+      },
+      {
+        "name": "should fail to update profile on network failure",
+        "status": "failed",
+        "duration": 900,
+        "message": "Network Timeout",
+        "trace": "ProfileUpdateTest.js:60",
+        "ai": "The test failed because there was a network timeout error at line 60 of the ProfileUpdateTest.js file. To resolve this, ensure network connection stability, consider increasing the timeout threshold for network requests, improve network failure handling in the profile update logic, and use mocked network requests in the test for better simulation and resilience."
+      },
+      {
+        "name": "should fail to update profile on network failure",
+        "status": "failed",
+        "duration": 900,
+        "ai": "The test failed because the error message and stack trace are undefined, indicating a lack of proper error handling in the test case for network failures. To resolve this, review the test case code and implement logging for network errors to provide detailed error messages and stack traces for effective debugging."
+      },
+      {
+        "name": "should load user data",
+        "status": "pending",
+        "duration": 0
+      },
+      {
+        "name": "should handle session timeouts",
+        "status": "passed",
+        "duration": 950,
+        "flaky": true,
+        "retries": 1
+      },
+      {
+        "name": "should clean up user session on logout",
+        "status": "other",
+        "duration": 1050
+      },
+      {
+        "name": "should allow user to change password",
+        "status": "passed",
+        "duration": 1300,
+        "flaky": false,
+        "retries": 3
+      }
+    ]
+  }
+}
