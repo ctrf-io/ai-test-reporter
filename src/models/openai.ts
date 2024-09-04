@@ -14,7 +14,7 @@ export async function openAISummary(report: CtrfReport, file: string, args: Argu
 
         const systemPrompt = args.systemPrompt || "";
 
-        const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that identifies the cause, the likely reason and suggests ways to fix`;
+        const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that identifies the cause and suggests ways to fix`;
 
         try {
             const response = await client.chat.completions.create({
