@@ -3,6 +3,7 @@ import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { openAISummary } from './models/openai';
 import { validateCtrfFile } from './common';
+import { claudeSummary } from './models/claude';
 
 export interface Arguments {
     _: Array<string | number>;
@@ -25,14 +26,29 @@ const argv: Arguments = yargs(hideBin(process.argv))
             return yargs.positional('file', {
                 describe: 'Path to the CTRF file',
                 type: 'string',
+            }) 
+            .option('model', {
+                describe: 'OpenAI model to use',
+                type: 'string',
+                default: 'gpt-4o', 
+            });;
+        }
+    )
+    .command(
+        'claude <file>',
+        'Generate test summary from a CTRF report',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+            .option('model', {
+                describe: 'Claude model to use',
+                type: 'string',
+                default: 'claude-3-5-sonnet-20240620',  
             });
         }
     )
-    .option('model', {
-        describe: 'OpenAI model to use',
-        type: 'string',
-        default: 'gpt-3.5-turbo',
-    })
     .option('systemPrompt', {
         describe: 'System prompt to guide the AI',
         type: 'string',
@@ -87,6 +103,15 @@ if (argv._.includes('openai') && argv.file) {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
             openAISummary(report, file, argv);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
+} else if (argv._.includes('claude') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            claudeSummary(report, file, argv);
         }
     } catch (error) {
         console.error('Failed to read file:', error);

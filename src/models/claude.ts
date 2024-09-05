@@ -1,11 +1,11 @@
-import OpenAI from "openai";
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
 import { saveUpdatedReport } from "../common";
+import { Anthropic } from "@anthropic-ai/sdk";
 
-export async function openAISummary(report: CtrfReport, file: string, args: Arguments) {
-    const client = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
+export async function claudeSummary(report: CtrfReport, file: string, args: Arguments) {
+    const client = new Anthropic({
+        apiKey: process.env['ANTHROPIC_API_KEY'],
     });
 
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
@@ -13,24 +13,25 @@ export async function openAISummary(report: CtrfReport, file: string, args: Argu
     for (const test of failedTests) {
 
         const systemPrompt = args.systemPrompt || "";
-
         const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`;
 
         try {
-            const response = await client.chat.completions.create({
-                model: args.model || "gpt-4o",
+            const response = await client.messages.create({
+                system: systemPrompt,
                 messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: prompt }
+                    { role: 'user', content: prompt },
                 ],
-                max_tokens: args.maxTokens || null,
-                frequency_penalty: args.frequencyPenalty,
-                presence_penalty: args.presencePenalty,
-                ...(args.temperature !== undefined ? { temperature: args.temperature } : {}),
-                ...(args.topP !== undefined ? { top_p: args.topP } : {}),
+                max_tokens: args.maxTokens || 300,
+                model: args.model || "claude-3-5-sonnet-20240620",
+                temperature: args.temperature || 1
             });
 
-            const aiResponse = response.choices[0].message?.content;
+            const aiResponseArray = response.content;
+
+            const aiResponse = aiResponseArray
+                .filter(block => block.type === 'text')
+                .map(block => block.text)
+                .join(' ');
 
             if (aiResponse) {
                 test.ai = aiResponse;
