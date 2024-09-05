@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
-import { saveUpdatedReport } from "../common";
+import { saveUpdatedReport, stripAnsi } from "../common";
 
 export async function openAISummary(report: CtrfReport, file: string, args: Arguments) {
     const client = new OpenAI({
@@ -21,7 +21,7 @@ export async function openAISummary(report: CtrfReport, file: string, args: Argu
                 model: args.model || "gpt-4o",
                 messages: [
                     { role: 'system', content: systemPrompt },
-                    { role: 'user', content: prompt }
+                    { role: 'user', content: stripAnsi(prompt) }
                 ],
                 max_tokens: args.maxTokens || null,
                 frequency_penalty: args.frequencyPenalty,

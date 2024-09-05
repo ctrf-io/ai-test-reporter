@@ -1,6 +1,6 @@
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
-import { saveUpdatedReport } from "../common";
+import { saveUpdatedReport, stripAnsi } from "../common";
 import { Anthropic } from "@anthropic-ai/sdk";
 
 export async function claudeSummary(report: CtrfReport, file: string, args: Arguments) {
@@ -19,7 +19,7 @@ export async function claudeSummary(report: CtrfReport, file: string, args: Argu
             const response = await client.messages.create({
                 system: systemPrompt,
                 messages: [
-                    { role: 'user', content: prompt },
+                    { role: 'user', content: stripAnsi(prompt) },
                 ],
                 max_tokens: args.maxTokens || 300,
                 model: args.model || "claude-3-5-sonnet-20240620",
