@@ -1,6 +1,6 @@
 # AI Test Reporter
 
-Test report with AI error analysis using leading AI models from OpenAI and Anthropic Claude.
+Enrich your test report with AI error analysis using leading AI models from OpenAI and Anthropic Claude. Integrate with Developer tooling to provide AI summaries where you need them.
 
 ## **⭐⭐ If you find this project useful, consider giving it a GitHub star ⭐⭐**
 
@@ -15,8 +15,8 @@ Thank you! Your support is invaluable to us! 💙
 
 ## Key Features
 
-- Generate a test report with human-readable AI summaries failed tests
-- Use your own AI model, with support for OpenAI and Anthropic Claude
+- Generate a test report with human-readable AI summaries for failed tests
+- Use your own AI model, with support for OpenAI, Anthropic Claude and more soon
 - Compatible with all major testing frameworks through standardized CTRF reports.
 - Integrates AI with various CI/CD and developer tools.
 - Customizable parameters like system prompt, model, temperature, max tokens, and more.
@@ -72,7 +72,7 @@ npx ai-ctrf claude <path-to-ctrf-report>
 
 An AI summary for each failed test will be added to your test report.
 
-The package interacts with the OpenAI API, you must set `ANTHROPIC_API_KEY` environment variable.
+The package interacts with the Anthropic API, you must set `ANTHROPIC_API_KEY` environment variable.
 
 You will be responsible for any charges incurred from using your selected Claude model. Make sure you are aware of the associated costs.
 
