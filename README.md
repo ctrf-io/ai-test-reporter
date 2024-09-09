@@ -1,6 +1,6 @@
 # AI Test Reporter
 
-Enrich your test report with AI error analysis using leading AI models from OpenAI and Anthropic Claude. Integrate with Developer tooling to provide AI summaries where you need them.
+Generate AI test summaries using leading AI models from OpenAI and Anthropic Claude. Integrate with Developer tooling to provide AI summaries where you need them.
 
 ## **⭐⭐ If you find this project useful, consider giving it a GitHub star ⭐⭐**
 
@@ -15,12 +15,12 @@ Thank you! Your support is invaluable to us! 💙
 
 ## Key Features
 
-- Generate a test report with human-readable AI summaries for failed tests
+- Generate human-readable AI summaries for failed tests
 - Use your own AI model, with support for OpenAI, Anthropic Claude and more soon
 - Compatible with all major testing frameworks through standardized CTRF reports.
 - Integrates AI with various CI/CD and developer tools.
 - Customizable parameters like system prompt, model, temperature, max tokens, and more.
-- Supports logging the AI generated summaries to the console.
+- Log AI generated summaries to the console.
 
 ## Usage
 
@@ -93,6 +93,12 @@ You will be responsible for any charges incurred from using your selected Claude
 View AI summaries in directly in the Github Actions workflow:
 
 ![Github](assets/github.png)
+
+## Slack Integration
+
+Send a Slack message with your AI test summaries:
+
+![Slack](assets/slack.png)
 
 ## Support Us
 
