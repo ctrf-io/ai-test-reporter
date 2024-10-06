@@ -22,6 +22,8 @@ Thank you! Your support is invaluable to us! 💙
 - Customizable parameters like system prompt, model, temperature, max tokens, and more.
 - Log AI generated summaries to the console.
 
+![stdout](assets/stdout.png)
+
 ## Usage
 
 Generate a CTRF report using your testing framework. [CTRF reporters](https://github.com/orgs/ctrf-io/repositories) are available for most testing frameworks and easy to install.
