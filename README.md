@@ -94,9 +94,13 @@ View AI summaries in directly in the Github Actions workflow:
 
 ![Github](assets/github.png)
 
+Add a Pull Request comment with your AI summary:
+
+![Github](assets/github-pr.png)
+
 ## Slack Integration
 
-Send a Slack message with your AI test summaries:
+Send a Slack message with your AI test summary:
 
 ![Slack](assets/slack.png)
 
