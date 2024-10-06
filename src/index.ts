@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
-import { openAISummary } from './models/openai';
-import { azureOpenAISummary } from './models/azure-openai';
+import { openAIFailedTestSummary } from './models/openai';
+import { azureFailedTestSummary } from './models/azure-openai';
 import { validateCtrfFile } from './common';
-import { claudeSummary } from './models/claude';
+import { claudeFailedTestSummary } from './models/claude';
 
 export interface Arguments {
     _: Array<string | number>;
@@ -123,7 +123,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            openAISummary(report, file, argv);
+            openAIFailedTestSummary(report, file, argv);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
@@ -132,7 +132,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            claudeSummary(report, file, argv);
+            claudeFailedTestSummary(report, file, argv);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
@@ -141,7 +141,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            azureOpenAISummary(report, file, argv);
+            azureFailedTestSummary(report, file, argv);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
