@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - '**'
-  schedule:
-    - cron: '0 2 * * *'
 
 jobs:
   testing:
@@ -21,10 +19,6 @@ jobs:
         run: npm install
       - name: Build
         run: npx tsc
-      - name: Test ai
-        run: node dist/index.js openai ctrf-reports/ctrf-report.json --annotate false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: github.event_name != 'schedule'
       - name: Upload test results
         uses: actions/upload-artifact@v4
