@@ -64,6 +64,8 @@ A message is sent to OpenAI for each failed test.
 
 `--log`: Whether to log the AI responses to the console (default: true).
 
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.
+
 ## Azure OpenAI
 
 Run the following command:
@@ -98,6 +100,8 @@ A message is sent to Azure OpenAI for each failed test.
 
 `--log`: Whether to log the AI responses to the console (default: true).
 
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.
+
 ## Claude
 
 Run the following command:
@@ -125,6 +129,8 @@ A message is sent to Claude for each failed test.
 `--temperature`: Sampling temperature.
 
 `--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.
 
 ## CTRF Report Example
 

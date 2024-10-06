@@ -17,6 +17,7 @@ export interface Arguments {
     temperature?: number;
     topP?: number;
     log?: boolean;
+    maxMessages?: number
     deploymentId?: string;
 }
 
@@ -112,6 +113,11 @@ const argv: Arguments = yargs(hideBin(process.argv))
         describe: 'Log the AI responses to the console',
         type: 'boolean',
         default: true,
+    })
+    .option('maxMessages', {
+        describe: 'Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.',
+        type: 'number',
+        default: 10,
     })
     .help()
     .alias('help', 'h')
