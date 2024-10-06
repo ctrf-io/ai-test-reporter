@@ -62,6 +62,38 @@ You will be responsible for any charges incurred from using your selected OpenAI
 
 `--log`: Whether to log the AI responses to the console (default: true).
 
+## Azure OpenAI
+
+Run the following command:
+
+```bash
+npx ai-ctrf azure-openai <path-to-ctrf-report>
+```
+
+An AI summary for each failed test will be added to your test report.
+
+The package interacts with the Azure OpenAI API, you must set `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_ENDPOINT`, and `AZURE_OPENAI_DEPLOYMENT_NAME` environment variable or provide them as arguments.
+
+You will be responsible for any charges incurred from using your selected Azure OpenAI model. Make sure you are aware of the associated cost.
+
+### Options
+
+`--model`: OpenAI model to use (default: gpt-3.5-turbo).
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--frequencyPenalty`: OpenAI frequency penalty parameter (default: 0).
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--presencePenalty`: OpenAI presence penalty parameter (default: 0).
+
+`--temperature`: Sampling temperature (conflicts with topP).
+
+`--topP`: Top-p sampling parameter (conflicts with temperature).
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
 ## Claude
 
 Run the following command:

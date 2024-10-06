@@ -2,6 +2,7 @@
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { openAISummary } from './models/openai';
+import { azureOpenAISummary } from './models/azure-openai';
 import { validateCtrfFile } from './common';
 import { claudeSummary } from './models/claude';
 
@@ -16,6 +17,7 @@ export interface Arguments {
     temperature?: number;
     topP?: number;
     log?: boolean;
+    deploymentId?: string;
 }
 
 const argv: Arguments = yargs(hideBin(process.argv))
@@ -31,7 +33,7 @@ const argv: Arguments = yargs(hideBin(process.argv))
                 describe: 'OpenAI model to use',
                 type: 'string',
                 default: 'gpt-4o', 
-            });;
+            });
         }
     )
     .command(
@@ -45,8 +47,27 @@ const argv: Arguments = yargs(hideBin(process.argv))
             .option('model', {
                 describe: 'Claude model to use',
                 type: 'string',
-                default: 'claude-3-5-sonnet-20240620',  
+                default: 'claude-3-5-sonnet-20240620', 
             });
+        }
+    )
+    .command(
+        'azure-openai <file>',
+        'Generate test summary from a CTRF report using Azure OpenAI',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+                .option('deploymentId', {
+                    describe: 'Deployment ID for Azure OpenAI',
+                    type: 'string',
+                })
+                .option('model', {
+                    describe: 'Model to use',
+                    type: 'string',
+                    default: 'gpt-4o',
+                });
         }
     )
     .option('systemPrompt', {
@@ -112,6 +133,15 @@ if (argv._.includes('openai') && argv.file) {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
             claudeSummary(report, file, argv);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
+} else if (argv._.includes('azure-openai') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            azureOpenAISummary(report, file, argv);
         }
     } catch (error) {
         console.error('Failed to read file:', error);

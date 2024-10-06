@@ -35,7 +35,11 @@ export async function openAISummary(report: CtrfReport, file: string, args: Argu
             if (aiResponse) {
                 test.ai = aiResponse;
                 if (args.log) {
-                    console.log(`AI summary for test: ${test.name}\n`, aiResponse);
+                        console.log(`\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────`);
+                        console.log(`✨ AI Test Reporter Summary`);
+                        console.log(`─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n`);
+                        console.log(`❌ Failed Test: ${test.name}\n`)
+                        console.log(`${aiResponse}\n`);
                 }
             }
         } catch (error) {

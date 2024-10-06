@@ -1,7 +1,7 @@
 {
   "name": "ai-ctrf",
-  "version": "0.0.3",
-  "description": "",
+  "version": "0.0.4",
+  "description": "AI Test Reporter - Create human-readable summaries of test results with LLMs like OpenAI GPT",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
