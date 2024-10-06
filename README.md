@@ -44,6 +44,8 @@ The package interacts with the OpenAI API, you must set `OPENAI_API_KEY` environ
 
 You will be responsible for any charges incurred from using your selected OpenAI model. Make sure you are aware of the associated cost.
 
+A message is sent to OpenAI for each failed test.
+
 ### Options
 
 `--model`: OpenAI model to use (default: gpt-3.5-turbo).
@@ -75,6 +77,8 @@ An AI summary for each failed test will be added to your test report.
 The package interacts with the Azure OpenAI API, you must set `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_ENDPOINT`, and `AZURE_OPENAI_DEPLOYMENT_NAME` environment variable or provide them as arguments.
 
 You will be responsible for any charges incurred from using your selected Azure OpenAI model. Make sure you are aware of the associated cost.
+
+A message is sent to Azure OpenAI for each failed test.
 
 ### Options
 
@@ -108,6 +112,8 @@ The package interacts with the Anthropic API, you must set `ANTHROPIC_API_KEY` e
 
 You will be responsible for any charges incurred from using your selected Claude model. Make sure you are aware of the associated costs.
 
+A message is sent to Claude for each failed test.
+
 ### Claude Options
 
 `--model`: Claude model to use (default: claude-3-5-sonnet-20240620).
@@ -119,6 +125,42 @@ You will be responsible for any charges incurred from using your selected Claude
 `--temperature`: Sampling temperature.
 
 `--log`: Whether to log the AI responses to the console (default: true).
+
+## CTRF Report Example
+
+``` json
+{
+  "results": {
+    "tool": {
+      "name": "AnyFramework"
+    },
+    "summary": {
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pending": 0,
+      "skipped": 0,
+      "other": 1,
+      "start": 1722511783500,
+      "stop": 1722511804528
+    },
+    "tests": [
+        {
+            "name": "should display profile information",
+            "status": "failed",
+            "duration": 800,
+            "message": "Assertion Failure: profile mismatch",
+            "trace": "ProfileTest.js:45...",
+            "ai": "The test failed because there was a profile mismatch at line 45 of the ProfileTest.js file. To resolve this issue,   review the code at line 45 to ensure that the expected profile information matches the actual data being displayed. Check for any discrepancies and make necessary adjustments to align the expected and actual profile information."
+        },
+    ]
+  }
+}
+```
+
+## Standard Output
+
+![stdout](assets/stdout.png)
 
 ## GitHub Actions Integration
 
