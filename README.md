@@ -66,7 +66,9 @@ A message is sent to OpenAI for each failed test.
 
 `--log`: Whether to log the AI responses to the console (default: true).
 
-`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
 
 ## Azure OpenAI
 
@@ -102,7 +104,9 @@ A message is sent to Azure OpenAI for each failed test.
 
 `--log`: Whether to log the AI responses to the console (default: true).
 
-`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
 
 ## Claude
 
@@ -132,7 +136,9 @@ A message is sent to Claude for each failed test.
 
 `--log`: Whether to log the AI responses to the console (default: true).
 
-`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
 
 ## CTRF Report Example
 

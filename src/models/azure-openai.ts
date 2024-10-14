@@ -2,6 +2,7 @@ import { AzureOpenAI } from "openai";
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
+import { generateConsolidatedSummary } from "../consolidated-summary";
 
 export async function azureOpenAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
     const apiKey = process.env.AZURE_OPENAI_API_KEY;
@@ -60,10 +61,14 @@ export async function azureFailedTestSummary(report: CtrfReport, file: string, a
                 console.log(`─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n`);
                 logged = true;
             }
-            console.log(`❌ Failed Test: ${test.name}\n`);
-            console.log(`${response}\n`);
+            if (args.log) {
+                console.log(`❌ Failed Test: ${test.name}\n`)
+                console.log(`${response}\n`);
+            }
         }
     }
-
+    if (args.consolidate) {
+        await generateConsolidatedSummary(report, file, "azure", args)
+    }
     saveUpdatedReport(file, report);
 }

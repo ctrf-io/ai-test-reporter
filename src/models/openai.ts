@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
+import { generateConsolidatedSummary } from "../consolidated-summary";
 
 export async function openAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
     const client = new OpenAI({
@@ -53,9 +54,14 @@ export async function openAIFailedTestSummary(report: CtrfReport, file: string, 
                 console.log(`─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n`);
                 logged = true;
             }
-            console.log(`❌ Failed Test: ${test.name}\n`)
-            console.log(`${response}\n`);
+            if (args.log) {
+                console.log(`❌ Failed Test: ${test.name}\n`)
+                console.log(`${response}\n`);
+            }
         }
+    }
+    if (args.consolidate) {
+        await generateConsolidatedSummary(report, file, "openai", args)
     }
     saveUpdatedReport(file, report);
 }

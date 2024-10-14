@@ -2,6 +2,7 @@ import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
 import { Anthropic } from "@anthropic-ai/sdk";
+import { generateConsolidatedSummary } from "../consolidated-summary";
 
 export async function claudeAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
     const client = new Anthropic({
@@ -56,10 +57,14 @@ export async function claudeFailedTestSummary(report: CtrfReport, file: string, 
                 console.log(`─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n`);
                 logged = true;
             }
-            console.log(`❌ Failed Test: ${test.name}\n`);
-            console.log(`${response}\n`);
+            if (args.log) {
+                console.log(`❌ Failed Test: ${test.name}\n`)
+                console.log(`${response}\n`);
+            }
         }
     }
-
+    if (args.consolidate) {
+        await generateConsolidatedSummary(report, file, "claude", args)
+    }
     saveUpdatedReport(file, report);
 }

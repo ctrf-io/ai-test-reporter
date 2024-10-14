@@ -5,6 +5,7 @@ import { openAIFailedTestSummary } from './models/openai';
 import { azureFailedTestSummary } from './models/azure-openai';
 import { validateCtrfFile } from './common';
 import { claudeFailedTestSummary } from './models/claude';
+import { generateConsolidatedSummary } from './consolidated-summary';
 
 export interface Arguments {
     _: Array<string | number>;
@@ -18,6 +19,7 @@ export interface Arguments {
     topP?: number;
     log?: boolean;
     maxMessages?: number
+    consolidate?: boolean
     deploymentId?: string;
 }
 
@@ -118,6 +120,11 @@ const argv: Arguments = yargs(hideBin(process.argv))
         describe: 'Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests.',
         type: 'number',
         default: 10,
+    })
+    .option('consolidate', {
+        describe: 'Consolidate and summarize multiple AI summaries into a higher-level overview',
+        type: 'boolean',
+        default: true,
     })
     .help()
     .alias('help', 'h')
