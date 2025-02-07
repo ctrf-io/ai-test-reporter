@@ -31,7 +31,7 @@ export async function deepseekAI(systemPrompt: string, prompt: string, args: Arg
     }
 }
 
-export async function deepseekFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
+export async function deepseekFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -62,8 +62,10 @@ export async function deepseekFailedTestSummary(report: CtrfReport, file: string
         }
     }
     if (args.consolidate) {
-        await generateConsolidatedSummary(report, file, "deepseek", args)
+        await generateConsolidatedSummary(report, "deepseek", args)
     }
-    saveUpdatedReport(file, report);
+    if (file) {
+        saveUpdatedReport(file, report);
+    }
     return report;
 } 

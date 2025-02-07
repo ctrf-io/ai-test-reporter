@@ -33,7 +33,7 @@ export async function claudeAI(systemPrompt: string, prompt: string, args: Argum
     }
 }
 
-export async function claudeFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
+export async function claudeFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -64,8 +64,10 @@ export async function claudeFailedTestSummary(report: CtrfReport, file: string, 
         }
     }
     if (args.consolidate) {
-        await generateConsolidatedSummary(report, file, "claude", args)
+        await generateConsolidatedSummary(report, "claude", args)
     }
-    saveUpdatedReport(file, report);
+    if (file) {
+        saveUpdatedReport(file, report);
+    }
     return report;
 }

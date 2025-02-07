@@ -37,7 +37,7 @@ export async function azureOpenAI(systemPrompt: string, prompt: string, args: Ar
     }
 }
 
-export async function azureFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
+export async function azureFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -68,8 +68,10 @@ export async function azureFailedTestSummary(report: CtrfReport, file: string, a
         }
     }
     if (args.consolidate) {
-        await generateConsolidatedSummary(report, file, "azure", args)
+        await generateConsolidatedSummary(report, "azure", args)
     }
-    saveUpdatedReport(file, report);
+    if (file) {
+        saveUpdatedReport(file, report);
+    }
     return report;
 }

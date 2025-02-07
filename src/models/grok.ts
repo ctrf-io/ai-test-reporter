@@ -31,7 +31,7 @@ export async function grokAI(systemPrompt: string, prompt: string, args: Argumen
     }
 }
 
-export async function grokFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
+    export async function grokFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -46,7 +46,7 @@ export async function grokFailedTestSummary(report: CtrfReport, file: string, ar
         const systemPrompt = args.systemPrompt || ""
         const response = await grokAI(systemPrompt, prompt, args);
 
-        if (response) {
+        if (response) { 
             test.ai = response;
             messageCount++;
             if (args.log && !logged) {
@@ -62,8 +62,10 @@ export async function grokFailedTestSummary(report: CtrfReport, file: string, ar
         }
     }
     if (args.consolidate) {
-        await generateConsolidatedSummary(report, file, "grok", args)
+        await generateConsolidatedSummary(report, "grok", args)
     }
-    saveUpdatedReport(file, report);
+    if (file) {
+        saveUpdatedReport(file, report);
+    }
     return report;
 }

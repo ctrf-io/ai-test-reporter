@@ -7,7 +7,7 @@ import { grokAI } from "./models/grok";
 import { deepseekAI } from "./models/deepseek";
 // import { CONSOLIDATED_SUMMARY_SYSTEM_PROMPT } from "./constants";
 
-export async function generateConsolidatedSummary(report: CtrfReport, file: string, model: string, args: Arguments) {
+export async function generateConsolidatedSummary(report: CtrfReport, model: string, args: Arguments) {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
     const aiSummaries: string[] = [];
 

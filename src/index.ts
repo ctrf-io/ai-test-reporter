@@ -168,7 +168,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            openAIFailedTestSummary(report, file, argv);
+            openAIFailedTestSummary(report, argv, file, true);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
@@ -177,7 +177,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            claudeFailedTestSummary(report, file, argv);
+            claudeFailedTestSummary(report, argv, file, true);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
@@ -186,7 +186,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            azureFailedTestSummary(report, file, argv);
+            azureFailedTestSummary(report, argv, file, true);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
@@ -195,7 +195,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            grokFailedTestSummary(report, file, argv);
+            grokFailedTestSummary(report, argv, file, true);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
@@ -204,7 +204,7 @@ if (argv._.includes('openai') && argv.file) {
     try {
         const report = validateCtrfFile(argv.file);
         if (report !== null) {
-            deepseekFailedTestSummary(report, file, argv);
+            deepseekFailedTestSummary(report, argv, file, true);
         }
     } catch (error) {
         console.error('Failed to read file:', error);
