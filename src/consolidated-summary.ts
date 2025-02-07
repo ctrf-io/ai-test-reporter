@@ -1,9 +1,11 @@
 import { CtrfReport } from "../types/ctrf";
 import { Arguments } from "./index";
 import { openAI } from "./models/openai";
-import { saveUpdatedReport } from "./common";
 import { claudeAI } from "./models/claude";
 import { azureOpenAI } from "./models/azure-openai";
+import { grokAI } from "./models/grok";
+import { deepseekAI } from "./models/deepseek";
+// import { CONSOLIDATED_SUMMARY_SYSTEM_PROMPT } from "./constants";
 
 export async function generateConsolidatedSummary(report: CtrfReport, file: string, model: string, args: Arguments) {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
@@ -21,6 +23,25 @@ export async function generateConsolidatedSummary(report: CtrfReport, file: stri
                  - Adding generic conclusions or advice such as "By following these steps..."
                  - headings, bullet points, or special formatting.`
     const consolidatedPrompt = `The following tests failed in the suite:\n\n${aiSummaries.join("\n")}\n\nA total of ${failedTests.length} tests failed in this test suite. Please provide a high-level summary of what went wrong across the suite and suggest what might be the root causes or patterns.`;
+
+    //     const systemPrompt = CONSOLIDATED_SUMMARY_SYSTEM_PROMPT;
+    //     const consolidatedPrompt = `Analyze these ${failedTests.length} test failures from our test suite:
+
+    // Test Environment: ${report.results.environment || 'Not specified'}
+    // Test Tool: ${report.results.tool.name}
+    // Total Tests Run: ${report.results.tests.length}
+    // Failed Tests: ${failedTests.length}
+
+    // Failed Test Details:
+    // ${aiSummaries.join("\n")}
+
+    // Key Questions to Address:
+    // 1. What patterns or common themes exist across these failures?
+    // 3. Is there evidence of a broader system change causing these failures?
+    // 4. How should I prioritize the issues to address based on the failure patterns?
+
+    // Please provide a high-level analysis of the test suite failures, focusing on systemic issues and patterns.`;
+
     let consolidatedSummary = ""
 
     if (model === 'openai') {
@@ -29,6 +50,10 @@ export async function generateConsolidatedSummary(report: CtrfReport, file: stri
         consolidatedSummary = await claudeAI(systemPrompt, consolidatedPrompt, args) || ""
     } else if (model === 'azure') {
         consolidatedSummary = await azureOpenAI(systemPrompt, consolidatedPrompt, args) || ""
+    } else if (model === 'grok') {
+        consolidatedSummary = await grokAI(systemPrompt, consolidatedPrompt, args) || ""
+    } else if (model === 'deepseek') {
+        consolidatedSummary = await deepseekAI(systemPrompt, consolidatedPrompt, args) || ""
     }
 
     if (consolidatedSummary) {

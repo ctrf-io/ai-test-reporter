@@ -30,7 +30,7 @@ export async function openAI(systemPrompt: string, prompt: string, args: Argumen
     }
 }
 
-export async function openAIFailedTestSummary(report: CtrfReport, file: string, args: Arguments) {
+export async function openAIFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -41,8 +41,9 @@ export async function openAIFailedTestSummary(report: CtrfReport, file: string, 
             break;
         }
 
+        //const prompt = generateFailedTestPrompt(test, report);
         const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`;
-        const systemPrompt = args.systemPrompt || ""
+        const systemPrompt = args.systemPrompt || "";
         const response = await openAI(systemPrompt, prompt, args);
 
         if (response) {
@@ -64,4 +65,5 @@ export async function openAIFailedTestSummary(report: CtrfReport, file: string, 
         await generateConsolidatedSummary(report, file, "openai", args)
     }
     saveUpdatedReport(file, report);
+    return report;
 }

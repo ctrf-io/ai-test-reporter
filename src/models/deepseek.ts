@@ -1,39 +1,37 @@
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
-import { Anthropic } from "@anthropic-ai/sdk";
 import { generateConsolidatedSummary } from "../consolidated-summary";
+import OpenAI from "openai";
 
-export async function claudeAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
-    const client = new Anthropic({
-        apiKey: process.env['ANTHROPIC_API_KEY'],
+export async function deepseekAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
+    const client = new OpenAI({
+        apiKey: process.env.DEEPSEEK_API_KEY,
+        baseURL: process.env.DEEPSEEK_API_BASE_URL || 'https://api.deepseek.com/v1',
     });
 
     try {
-        const response = await client.messages.create({
-            system: systemPrompt,
+        const response = await client.chat.completions.create({
+            model: args.model || "deepseek-reasoner",
             messages: [
-                { role: 'user', content: stripAnsi(prompt) },
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: stripAnsi(prompt) }
             ],
-            max_tokens: args.maxTokens || 300,
-            model: args.model || "claude-3-5-sonnet-20240620",
-            temperature: args.temperature || 1
+            max_tokens: args.maxTokens || null,
+            frequency_penalty: args.frequencyPenalty,
+            presence_penalty: args.presencePenalty,
+            ...(args.temperature !== undefined ? { temperature: args.temperature } : {}),
+            ...(args.topP !== undefined ? { top_p: args.topP } : {}),
         });
 
-        const aiResponseArray = response.content;
-        const aiResponse = aiResponseArray
-            .filter(block => block.type === 'text')
-            .map(block => block.text)
-            .join(' ');
-
-        return aiResponse || null;
+        return response.choices[0].message?.content || null;
     } catch (error) {
-        console.error(`Error invoking Claude AI`, error);
+        console.error(`Error invoking DeepSeek`, error);
         return null;
     }
 }
 
-export async function claudeFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
+export async function deepseekFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -46,7 +44,7 @@ export async function claudeFailedTestSummary(report: CtrfReport, file: string, 
 
         const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`;
         const systemPrompt = args.systemPrompt || ""
-        const response = await claudeAI(systemPrompt, prompt, args);
+        const response = await deepseekAI(systemPrompt, prompt, args);
 
         if (response) {
             test.ai = response;
@@ -64,8 +62,8 @@ export async function claudeFailedTestSummary(report: CtrfReport, file: string, 
         }
     }
     if (args.consolidate) {
-        await generateConsolidatedSummary(report, file, "claude", args)
+        await generateConsolidatedSummary(report, file, "deepseek", args)
     }
     saveUpdatedReport(file, report);
     return report;
-}
+} 

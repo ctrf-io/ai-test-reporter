@@ -2,16 +2,28 @@
 
 Generate AI test summaries using leading AI models from OpenAI and Anthropic Claude. Integrate with Developer tooling to provide AI summaries where you need them.
 
-## **⭐⭐ If you find this project useful, consider giving it a GitHub star ⭐⭐**
+<div align="center">
+<div style="padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border: 1px solid #30363d;">
+<span style="font-size: 23px;">💚</span>
+<h3 style="margin: 1rem 0;">CTRF tooling is open source and free to use</h3>
+<p style="font-size: 16px;">You can support the project with a follow and a star</p>
 
-## You can help us grow
+<div style="margin-top: 1.5rem;">
+<a href="https://github.com/ctrf-io/ai-test-reporter">
+<img src="https://img.shields.io/github/stars/ctrf-io/ai-test-reporter?style=for-the-badge&color=2ea043" alt="GitHub stars">
+</a>
+<a href="https://github.com/ctrf-io">
+<img src="https://img.shields.io/github/followers/ctrf-io?style=for-the-badge&color=2ea043" alt="GitHub followers">
+</a>
+</div>
+</div>
 
-Support our mission to enhance test reporting with AI summaries by:
-
-- **⭐ Starring this repository to show your support. ⭐**
-- **🙌 Following our [GitHub page here](https://github.com/ctrf-io) 🙌**
-
-Thank you! Your support is invaluable to us! 💙
+<p style="font-size: 14px; margin: 1rem 0;">
+Maintained by <a href="https://github.com/ma11hewthomas">Matthew Thomas</a><br/>
+Contributions are very welcome! <br/>
+Explore more <a href="https://www.ctrf.io/integrations">integrations</a>
+</p>
+</div>
 
 ## Key Features
 
@@ -127,6 +139,71 @@ A message is sent to Claude for each failed test.
 ### Claude Options
 
 `--model`: Claude model to use (default: claude-3-5-sonnet-20240620).
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--temperature`: Sampling temperature.
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## Grok
+
+Run the following command:
+
+```bash
+npx ai-ctrf grok <path-to-ctrf-report>
+```
+
+
+An AI summary for each failed test will be added to your test report.
+
+The package interacts with the Grok API, you must set `GROK_API_KEY` and optionally `GROK_API_BASE_URL` environment variables.
+
+You will be responsible for any charges incurred from using Grok. Make sure you are aware of the associated costs.
+
+A message is sent to Grok for each failed test.
+
+### Grok Options
+
+`--model`: Grok model to use (default: grok-1).
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--temperature`: Sampling temperature.
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## DeepSeek
+
+Run the following command:
+
+```bash
+npx ai-ctrf deepseek <path-to-ctrf-report>
+```
+
+An AI summary for each failed test will be added to your test report.
+
+The package interacts with the DeepSeek API, you must set `DEEPSEEK_API_KEY` and optionally `DEEPSEEK_API_BASE_URL` environment variables.
+
+You will be responsible for any charges incurred from using DeepSeek. Make sure you are aware of the associated costs.
+
+A message is sent to DeepSeek for each failed test.
+
+### DeepSeek Options
+
+`--model`: DeepSeek model to use (default: deepseek-coder).
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
 

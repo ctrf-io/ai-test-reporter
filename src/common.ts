@@ -42,3 +42,19 @@ export function stripAnsi(message: string) {
 
 	return message.replace(ansiRegex(), '');
 }
+
+export function generateFailedTestPrompt(test: any, report: CtrfReport): string {
+    return `Analyze this test failure:
+
+Test Name: ${test.name}
+Test Tool: ${report.results.tool.name}
+${report.results.environment ? `Environment: ${report.results.environment}` : ""}
+
+Failure Details:
+${JSON.stringify(test, null, 2)}
+
+What I need:
+1. What specifically failed in this test
+2. The likely root cause based on the error messages and context
+3. The potential impact of this failure on the system`;
+}

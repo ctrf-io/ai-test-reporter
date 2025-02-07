@@ -37,7 +37,7 @@ export async function azureOpenAI(systemPrompt: string, prompt: string, args: Ar
     }
 }
 
-export async function azureFailedTestSummary(report: CtrfReport, file: string, args: Arguments) {
+export async function azureFailedTestSummary(report: CtrfReport, file: string, args: Arguments): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -71,4 +71,5 @@ export async function azureFailedTestSummary(report: CtrfReport, file: string, a
         await generateConsolidatedSummary(report, file, "azure", args)
     }
     saveUpdatedReport(file, report);
+    return report;
 }

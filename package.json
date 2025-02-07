@@ -1,8 +1,9 @@
 {
   "name": "ai-ctrf",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "AI Test Reporter - Create human-readable summaries of test results with LLMs like OpenAI GPT",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts --fix",
@@ -39,5 +40,12 @@
     "@anthropic-ai/sdk": "^0.27.2",
     "openai": "^4.57.0",
     "yargs": "^17.7.2"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   }
 }

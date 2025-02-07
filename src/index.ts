@@ -5,7 +5,9 @@ import { openAIFailedTestSummary } from './models/openai';
 import { azureFailedTestSummary } from './models/azure-openai';
 import { validateCtrfFile } from './common';
 import { claudeFailedTestSummary } from './models/claude';
-import { generateConsolidatedSummary } from './consolidated-summary';
+import { grokFailedTestSummary } from './models/grok';
+import { deepseekFailedTestSummary } from './models/deepseek';
+import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT } from './constants';
 
 export interface Arguments {
     _: Array<string | number>;
@@ -71,6 +73,36 @@ const argv: Arguments = yargs(hideBin(process.argv))
                     type: 'string',
                     default: 'gpt-4o',
                 });
+        }
+    )
+    .command(
+        'grok <file>',
+        'Generate test summary from a CTRF report using Grok',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+            .option('model', {
+                describe: 'Grok model to use',
+                type: 'string',
+                default: 'grok-2-latest',
+            });
+        }
+    )
+    .command(
+        'deepseek <file>',
+        'Generate test summary from a CTRF report using DeepSeek',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+            .option('model', {
+                describe: 'DeepSeek model to use',
+                type: 'string',
+                default: 'deepseek-reasoner',
+            });
         }
     )
     .option('systemPrompt', {
@@ -159,4 +191,24 @@ if (argv._.includes('openai') && argv.file) {
     } catch (error) {
         console.error('Failed to read file:', error);
     }
-}
+} else if (argv._.includes('grok') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            grokFailedTestSummary(report, file, argv);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
+} else if (argv._.includes('deepseek') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            deepseekFailedTestSummary(report, file, argv);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
+} 
+
+export { openAIFailedTestSummary, claudeFailedTestSummary, azureFailedTestSummary, grokFailedTestSummary, deepseekFailedTestSummary };
