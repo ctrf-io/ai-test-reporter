@@ -1,6 +1,6 @@
 {
   "name": "ai-ctrf",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "AI Test Reporter - Create human-readable summaries of test results with LLMs like OpenAI GPT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
