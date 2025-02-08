@@ -3,6 +3,7 @@ import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
 import { generateConsolidatedSummary } from "../consolidated-summary";
 import OpenAI from "openai";
+import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from "../constants";
 
 export async function deepseekAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
     const client = new OpenAI({
@@ -43,7 +44,7 @@ export async function deepseekFailedTestSummary(report: CtrfReport, args: Argume
         }
 
         const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`;
-        const systemPrompt = args.systemPrompt || ""
+        const systemPrompt = args.systemPrompt || FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT;
         const response = await deepseekAI(systemPrompt, prompt, args);
 
         if (response) {

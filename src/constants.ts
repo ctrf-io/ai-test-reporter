@@ -21,3 +21,15 @@ Avoid:
 - Using bullet points, headings, or special formatting
 - Making assumptions beyond the provided information
 - Including implementation details or debugging steps`
+
+export const FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT = `You will receive a CTRF report test object containing an error message and a stack trace. Your task is to generate a clear and concise summary of the failure, specifically designed to assist a human in debugging the issue. The summary should:
+- It is critical that you do not alter or interpret the error message or stack trace; instead, focus on analyzing the exact content provided.
+- Identify the likely cause of the failure based on the provided information.
+- Suggest specific steps for resolution directly related to the failure.
+- Start the summary with "The test failed because"
+- keep the tone conversational and natural.
+
+Avoid:
+- Including any code in your response.
+- Adding generic conclusions or advice such as "By following these steps..."
+- headings, bullet points, or special formatting.`

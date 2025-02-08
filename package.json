@@ -1,7 +1,7 @@
 {
   "name": "ai-ctrf",
-  "version": "0.0.7",
-  "description": "AI Test Reporter - Create human-readable summaries of test results with LLMs like OpenAI GPT",
+  "version": "0.0.10",
+  "description": "Generate AI summaries of test results using a wide range of AI models like OpenAI, Anthropic, Gemini, Mistral, Grok, DeepSeek, Azure, Perplexity, and OpenRouter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -18,8 +18,13 @@
     "dist/",
     "README.md"
   ],
-  "keywords": [],
+  "keywords": ["ai", "ctrf", "test-reporter", "openai", "anthropic", "google", "mistral", "grok", "deepseek", "azure", "perplexity", "openrouter"],
   "author": "Matthew Thomas",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ctrf-io/ai-test-reporter.git"
+  },
+  "homepage": "https://ctrf.io",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.12.7",
@@ -38,7 +43,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.2",
-    "openai": "^4.57.0",
+    "@google/generative-ai": "^0.21.0",
+        "openai": "^4.57.0",
     "yargs": "^17.7.2"
   },
   "exports": {

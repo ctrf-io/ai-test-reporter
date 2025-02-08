@@ -7,7 +7,11 @@ import { validateCtrfFile } from './common';
 import { claudeFailedTestSummary } from './models/claude';
 import { grokFailedTestSummary } from './models/grok';
 import { deepseekFailedTestSummary } from './models/deepseek';
-import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT } from './constants';
+import { mistralFailedTestSummary } from './models/mistral';
+import { geminiFailedTestSummary } from './models/gemini';
+import { perplexityFailedTestSummary } from './models/perplexity';
+import { openRouterFailedTestSummary } from './models/openrouter';
+import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from './constants';
 
 export interface Arguments {
     _: Array<string | number>;
@@ -105,19 +109,70 @@ const argv: Arguments = yargs(hideBin(process.argv))
             });
         }
     )
+    .command(
+        'mistral <file>',
+        'Generate test summary from a CTRF report using Mistral',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+            .option('model', {
+                describe: 'Mistral model to use',
+                type: 'string',
+                default: 'mistral-medium',
+            });
+        }
+    )
+    .command(
+        'gemini <file>',
+        'Generate test summary from a CTRF report using Google Gemini',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+            .option('model', {
+                describe: 'Gemini model to use',
+                type: 'string',
+                default: 'gemini-pro',
+            });
+        }
+    )
+    .command(
+        'perplexity <file>',
+        'Generate test summary from a CTRF report using Perplexity',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+            .option('model', {
+                describe: 'Perplexity model to use',
+                type: 'string',
+                default: 'pplx-7b-online',
+            });
+        }
+    )
+    .command(
+        'openrouter <file>',
+        'Generate test summary from a CTRF report using OpenRouter',
+        (yargs) => {
+            return yargs.positional('file', {
+                describe: 'Path to the CTRF file',
+                type: 'string',
+            })
+            .option('model', {
+                describe: 'OpenRouter model to use',
+                type: 'string',
+                default: 'anthropic/claude-3-opus',
+            });
+        }
+    )
     .option('systemPrompt', {
         describe: 'System prompt to guide the AI',
         type: 'string',
-        default: `You will receive a CTRF report test object containing an error message and a stack trace. Your task is to generate a clear and concise summary of the failure, specifically designed to assist a human in debugging the issue. The summary should:
-                 - It is critical that you do not alter or interpret the error message or stack trace; instead, focus on analyzing the exact content provided.
-                 - Identify the likely cause of the failure based on the provided information.
-                 - Suggest specific steps for resolution directly related to the failure.
-                 - Start the summary with "The test failed because"
-                 - keep the tone conversational and natural.
-                 Avoid:
-                 - Including any code in your response.
-                 - Adding generic conclusions or advice such as "By following these steps..."
-                 - headings, bullet points, or special formatting.`,
+        default: FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT,
     })
     .option('frequencyPenalty', {
         describe: 'Frequency penalty parameter for the model',
@@ -209,6 +264,42 @@ if (argv._.includes('openai') && argv.file) {
     } catch (error) {
         console.error('Failed to read file:', error);
     }
+} else if (argv._.includes('mistral') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            mistralFailedTestSummary(report, argv, file, true);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
+} else if (argv._.includes('gemini') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            geminiFailedTestSummary(report, argv, file, true);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
+} else if (argv._.includes('perplexity') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            perplexityFailedTestSummary(report, argv, file, true);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
+} else if (argv._.includes('openrouter') && argv.file) {
+    try {
+        const report = validateCtrfFile(argv.file);
+        if (report !== null) {
+            openRouterFailedTestSummary(report, argv, file, true);
+        }
+    } catch (error) {
+        console.error('Failed to read file:', error);
+    }
 } 
 
-export { openAIFailedTestSummary, claudeFailedTestSummary, azureFailedTestSummary, grokFailedTestSummary, deepseekFailedTestSummary };
+export { openAIFailedTestSummary, claudeFailedTestSummary, azureFailedTestSummary, grokFailedTestSummary, deepseekFailedTestSummary, mistralFailedTestSummary, geminiFailedTestSummary, perplexityFailedTestSummary, openRouterFailedTestSummary };

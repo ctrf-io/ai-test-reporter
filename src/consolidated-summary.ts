@@ -5,6 +5,9 @@ import { claudeAI } from "./models/claude";
 import { azureOpenAI } from "./models/azure-openai";
 import { grokAI } from "./models/grok";
 import { deepseekAI } from "./models/deepseek";
+import { gemini } from "./models/gemini";
+import { perplexity } from "./models/perplexity";
+import { openRouter } from "./models/openrouter";
 // import { CONSOLIDATED_SUMMARY_SYSTEM_PROMPT } from "./constants";
 
 export async function generateConsolidatedSummary(report: CtrfReport, model: string, args: Arguments) {
@@ -54,14 +57,22 @@ export async function generateConsolidatedSummary(report: CtrfReport, model: str
         consolidatedSummary = await grokAI(systemPrompt, consolidatedPrompt, args) || ""
     } else if (model === 'deepseek') {
         consolidatedSummary = await deepseekAI(systemPrompt, consolidatedPrompt, args) || ""
+    } else if (model === 'gemini') {
+        consolidatedSummary = await gemini(systemPrompt, consolidatedPrompt, args) || ""
+    } else if (model === 'perplexity') {
+        consolidatedSummary = await perplexity(systemPrompt, consolidatedPrompt, args) || ""
+    } else if (model === 'openrouter') {
+        consolidatedSummary = await openRouter(systemPrompt, consolidatedPrompt, args) || ""
     }
 
     if (consolidatedSummary) {
-        console.log(`\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n`);
-        console.log(`📝 Overall Summary:\n`);
-        console.log(`${consolidatedSummary}\n`);
-
+        if (args.log) {
+            console.log(`\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n`);
+            console.log(`📝 Overall Summary:\n`);
+            console.log(`${consolidatedSummary}\n`);
+        }
         report.results.extra = report.results.extra || {};
         report.results.extra.ai = consolidatedSummary;
     }
 }
+

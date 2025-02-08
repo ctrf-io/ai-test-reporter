@@ -3,7 +3,7 @@ import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
 import { Anthropic } from "@anthropic-ai/sdk";
 import { generateConsolidatedSummary } from "../consolidated-summary";
-
+import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from "../constants";
 export async function claudeAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
     const client = new Anthropic({
         apiKey: process.env['ANTHROPIC_API_KEY'],
@@ -45,7 +45,7 @@ export async function claudeFailedTestSummary(report: CtrfReport, args: Argument
         }
 
         const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`;
-        const systemPrompt = args.systemPrompt || ""
+        const systemPrompt = args.systemPrompt || FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT;
         const response = await claudeAI(systemPrompt, prompt, args);
 
         if (response) {

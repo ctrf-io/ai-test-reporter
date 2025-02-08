@@ -1,38 +1,26 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
 import { generateConsolidatedSummary } from "../consolidated-summary";
-import OpenAI from "openai";
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from "../constants";
 
-export async function grokAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
-    const client = new OpenAI({
-        apiKey: process.env.GROK_API_KEY,
-        baseURL: process.env.GROK_API_BASE_URL || 'https://api.x.ai/v1',
-    });
+export async function gemini(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
+    const model = genAI.getGenerativeModel({ model: args.model || "gemini-pro" });
 
     try {
-        const response = await client.chat.completions.create({
-            model: args.model || "grok-2-latest",
-            messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: stripAnsi(prompt) }
-            ],
-            max_tokens: args.maxTokens || null,
-            frequency_penalty: args.frequencyPenalty,
-            presence_penalty: args.presencePenalty,
-            ...(args.temperature !== undefined ? { temperature: args.temperature } : {}),
-            ...(args.topP !== undefined ? { top_p: args.topP } : {}),
-        });
-
-        return response.choices[0].message?.content || null;
+        const combinedPrompt = `${systemPrompt}\n\n${stripAnsi(prompt)}`;
+        const result = await model.generateContent(combinedPrompt);
+        const response = await result.response;
+        return response.text() || null;
     } catch (error) {
-        console.error(`Error invoking Grok`, error);
+        console.error(`Error invoking Gemini`, error);
         return null;
     }
 }
 
-    export async function grokFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
+export async function geminiFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -45,9 +33,9 @@ export async function grokAI(systemPrompt: string, prompt: string, args: Argumen
 
         const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`;
         const systemPrompt = args.systemPrompt || FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT;
-        const response = await grokAI(systemPrompt, prompt, args);
+        const response = await gemini(systemPrompt, prompt, args);
 
-        if (response) { 
+        if (response) {
             test.ai = response;
             messageCount++;
             if (args.log && !logged) {
@@ -63,10 +51,10 @@ export async function grokAI(systemPrompt: string, prompt: string, args: Argumen
         }
     }
     if (args.consolidate) {
-        await generateConsolidatedSummary(report, "grok", args)
+        await generateConsolidatedSummary(report, "gemini", args)
     }
     if (file) {
         saveUpdatedReport(file, report);
     }
     return report;
-}
+} 

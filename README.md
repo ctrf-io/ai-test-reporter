@@ -1,6 +1,6 @@
 # AI Test Reporter
 
-Generate AI test summaries using leading AI models from OpenAI and Anthropic Claude. Integrate with Developer tooling to provide AI summaries where you need them.
+AI Test Reporter is a powerful tool that generates intelligent summaries of test results using a wide range of AI models. With access to over 300 models through various providers (OpenAI, Anthropic Claude, Google Gemini, Mistral, Perplexity, OpenRouter, and more), it analyzes failing tests and provides actionable insights about what went wrong and how to fix it.
 
 <div align="center">
 <div style="padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border: 1px solid #30363d;">
@@ -25,16 +25,33 @@ Explore more <a href="https://www.ctrf.io/integrations">integrations</a>
 </p>
 </div>
 
-## Key Features
+## Why Use AI Test Reporter?
 
-- Generate human-readable AI summaries for failed tests
-- Use your own AI model, with support for OpenAI, Anthropic Claude and more soon
-- Compatible with all major testing frameworks through standardized CTRF reports.
-- Integrates AI with various CI/CD and developer tools.
-- Customizable parameters like system prompt, model, temperature, max tokens, and more.
-- Log AI generated summaries to the console.
+- 🤖 **Smart Analysis**: Get AI-powered explanations of why tests failed and suggestions for fixes
+- 🔌 **Multiple Providers**: Choose from 300+ AI models across different providers
+- 💰 **Cost-Effective Options**: Start with providers offering free credits like Mistral and Google Gemini
+- 🔄 **Developer Tool Integration**: Seamlessly integrate AI summaries into your workflow:
+  - GitHub Actions and Pull Requests
+  - Slack / Teams notifications
+  - And more through standardized CTRF reports
+- 🎯 **Consolidated Insights**: Get high-level summaries of test suite failures to identify patterns and root causes
+- ⚡ **Framework Agnostic**: Works with any testing framework through CTRF reports
 
-![stdout](assets/stdout.png)
+## Models
+
+You can use any of the models supported by the following providers:
+
+- OpenAI
+- Anthropic
+- Google
+- Mistral
+- Grok
+- DeepSeek
+- Azure OpenAI
+- Perplexity
+- OpenRouter
+
+You use your own API keys for the models you select.
 
 ## Usage
 
@@ -160,12 +177,11 @@ Run the following command:
 npx ai-ctrf grok <path-to-ctrf-report>
 ```
 
-
 An AI summary for each failed test will be added to your test report.
 
-The package interacts with the Grok API, you must set `GROK_API_KEY` and optionally `GROK_API_BASE_URL` environment variables.
+The package interacts with the Grok API, you must set `GROK_API_KEY` environment variable.
 
-You will be responsible for any charges incurred from using Grok. Make sure you are aware of the associated costs.
+You will be responsible for any charges incurred from using your selected Grok model. Make sure you are aware of the associated cost.
 
 A message is sent to Grok for each failed test.
 
@@ -195,9 +211,9 @@ npx ai-ctrf deepseek <path-to-ctrf-report>
 
 An AI summary for each failed test will be added to your test report.
 
-The package interacts with the DeepSeek API, you must set `DEEPSEEK_API_KEY` and optionally `DEEPSEEK_API_BASE_URL` environment variables.
+The package interacts with the DeepSeek API, you must set `DEEPSEEK_API_KEY` environment variable.
 
-You will be responsible for any charges incurred from using DeepSeek. Make sure you are aware of the associated costs.
+You will be responsible for any charges incurred from using your selected DeepSeek model. Make sure you are aware of the associated cost.
 
 A message is sent to DeepSeek for each failed test.
 
@@ -216,6 +232,180 @@ A message is sent to DeepSeek for each failed test.
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
 `consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## Mistral
+
+Run the following command:
+
+```bash
+npx ai-ctrf mistral <path-to-ctrf-report>
+```
+
+An AI summary for each failed test will be added to your test report.
+
+The package interacts with the Mistral API, you must set `MISTRAL_API_KEY` environment variable.
+
+You will be responsible for any charges incurred from using your selected Mistral model. Make sure you are aware of the associated cost.
+
+A message is sent to Mistral for each failed test.
+
+Mistral offers free API credits upon signup, making it a great option to test the tool without immediate costs.
+
+### Mistral Options
+
+`--model`: Mistral model to use (default: mistral-medium).
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--temperature`: Sampling temperature.
+
+`--topP`: Top-p sampling parameter.
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## Google Gemini
+
+Run the following command:
+
+```bash
+npx ai-ctrf gemini <path-to-ctrf-report>
+```
+
+An AI summary for each failed test will be added to your test report.
+
+The package interacts with the Google Gemini API, you must set `GOOGLE_API_KEY` environment variable.
+
+You will be responsible for any charges incurred from using your selected Gemini model. Make sure you are aware of the associated cost.
+
+A message is sent to Gemini for each failed test.
+
+Google offers free API credits for Gemini, providing a cost-effective way to try out the tool.
+
+### Gemini Options
+
+`--model`: Gemini model to use (default: gemini-pro).
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--temperature`: Sampling temperature.
+
+`--topP`: Top-p sampling parameter.
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## Perplexity
+
+Run the following command:
+
+```bash
+npx ai-ctrf perplexity <path-to-ctrf-report>
+```
+
+An AI summary for each failed test will be added to your test report.
+
+The package interacts with the Perplexity API, you must set `PERPLEXITY_API_KEY` environment variable.
+
+You will be responsible for any charges incurred from using your selected Perplexity model. Make sure you are aware of the associated cost.
+
+A message is sent to Perplexity for each failed test.
+
+### Perplexity Options
+
+`--model`: Perplexity model to use (default: pplx-7b-online).
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--temperature`: Sampling temperature.
+
+`--topP`: Top-p sampling parameter.
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## OpenRouter
+
+Run the following command:
+
+```bash
+npx ai-ctrf openrouter <path-to-ctrf-report>
+```
+
+An AI summary for each failed test will be added to your test report.
+
+The package interacts with the OpenRouter API, you must set `OPENROUTER_API_KEY` environment variable.
+
+OpenRouter provides access to multiple AI models through a single API, including models from Anthropic, OpenAI, Google, Meta, and more.
+
+You will be responsible for any charges incurred from using your selected OpenRouter model. Make sure you are aware of the associated cost.
+
+A message is sent to OpenRouter for each failed test.
+
+### OpenRouter Options
+
+`--model`: OpenRouter model to use (default: anthropic/claude-3-opus). Available models include:
+- anthropic/claude-3-opus
+- google/gemini-pro
+- meta-llama/llama-2-70b-chat
+- mistral/mixtral-8x7b
+And many more from the OpenRouter catalog.
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--temperature`: Sampling temperature.
+
+`--topP`: Top-p sampling parameter.
+
+`--frequencyPenalty`: Frequency penalty parameter.
+
+`--presencePenalty`: Presence penalty parameter.
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## Test Information Analyzed by AI Model
+
+The AI model analyzes information to:
+
+1. Understand the complete context of the failure
+2. Identify potential root causes
+3. Suggest specific fixes
+4. Highlight patterns across multiple failures
+
+When consolidation is enabled (`--consolidate`), the AI analyzes all test failures AI summaries together to provide a high-level summary of issues.
+
+### Test Object
+
+For each failing test, the AI receives the complete test object.
+
+### Environment Context
+
+The complete environment details from the `environment` object in the CTRF report is provided to the AI model.
+
+### Tool Context
+
+The complete tool details from the `tool` object in the CTRF report is provided to the AI model.
 
 ## CTRF Report Example
 

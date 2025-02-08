@@ -1,38 +1,46 @@
+import OpenAI from "openai";
 import { CtrfReport } from "../../types/ctrf";
 import { Arguments } from "../index";
 import { saveUpdatedReport, stripAnsi } from "../common";
 import { generateConsolidatedSummary } from "../consolidated-summary";
-import OpenAI from "openai";
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from "../constants";
 
-export async function grokAI(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
+export async function openRouter(systemPrompt: string, prompt: string, args: Arguments): Promise<string | null> {
     const client = new OpenAI({
-        apiKey: process.env.GROK_API_KEY,
-        baseURL: process.env.GROK_API_BASE_URL || 'https://api.x.ai/v1',
+        apiKey: process.env.OPENROUTER_API_KEY,
+        baseURL: "https://openrouter.ai/api/v1",
+        defaultHeaders: {
+            "HTTP-Referer": process.env.OPENROUTER_REFERER || "http://localhost:3000",
+            "X-Title": "AI Test Reporter"
+        }
     });
 
     try {
         const response = await client.chat.completions.create({
-            model: args.model || "grok-2-latest",
+            model: args.model || 'openai/gpt-3.5-turbo',
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: stripAnsi(prompt) }
             ],
-            max_tokens: args.maxTokens || null,
-            frequency_penalty: args.frequencyPenalty,
-            presence_penalty: args.presencePenalty,
-            ...(args.temperature !== undefined ? { temperature: args.temperature } : {}),
-            ...(args.topP !== undefined ? { top_p: args.topP } : {}),
+            max_tokens: args.maxTokens || undefined,
+            temperature: args.temperature || undefined,
+            ...(args.frequencyPenalty !== undefined && { frequency_penalty: args.frequencyPenalty }),
+            ...(args.presencePenalty !== undefined && { presence_penalty: args.presencePenalty }),
+            ...(args.topP !== undefined && { top_p: args.topP })
         });
 
-        return response.choices[0].message?.content || null;
-    } catch (error) {
-        console.error(`Error invoking Grok`, error);
+        if (!response?.choices?.[0]?.message?.content) {
+            throw new Error(`OpenRouter response is missing expected content structure: ${JSON.stringify(response, null, 2)}`);
+        }
+
+        return response.choices[0].message.content;
+    } catch (error: unknown) {
+        console.error(`Error invoking OpenRouter`, error);
         return null;
     }
 }
 
-    export async function grokFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
+export async function openRouterFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
 
     let logged = false;
@@ -45,9 +53,9 @@ export async function grokAI(systemPrompt: string, prompt: string, args: Argumen
 
         const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`;
         const systemPrompt = args.systemPrompt || FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT;
-        const response = await grokAI(systemPrompt, prompt, args);
+        const response = await openRouter(systemPrompt, prompt, args);
 
-        if (response) { 
+        if (response) {
             test.ai = response;
             messageCount++;
             if (args.log && !logged) {
@@ -63,10 +71,10 @@ export async function grokAI(systemPrompt: string, prompt: string, args: Argumen
         }
     }
     if (args.consolidate) {
-        await generateConsolidatedSummary(report, "grok", args)
+        await generateConsolidatedSummary(report, "openrouter", args)
     }
     if (file) {
         saveUpdatedReport(file, report);
     }
     return report;
-}
+} 
