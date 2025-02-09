@@ -32,6 +32,11 @@ export async function perplexity(systemPrompt: string, prompt: string, args: Arg
 
 export async function perplexityFailedTestSummary(report: CtrfReport, args: Arguments, file?: string, log = false): Promise<CtrfReport> {
     const failedTests = report.results.tests.filter(test => test.status === 'failed');
+    failedTests.forEach(test => {
+        if (test.extra) {
+            delete test.extra;
+        }
+    });
 
     let logged = false;
     let messageCount = 0;
