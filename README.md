@@ -39,11 +39,17 @@ Explore more <a href="https://www.ctrf.io/integrations">integrations</a>
 
 ## Models
 
+> [!TIP]
+> The following integrations are available with free tiers so are great to try out AI test reporter:
+>
+> - **Google Gemini**: Offers a free tier with lower rate limits. [Pricing details](https://ai.google.dev/pricing#2_0flash)
+> - **Mistral AI**: Provides a free API tier to explore the service. [Tier details](https://docs.mistral.ai/deployment/laplateforme/tier/#usage-tiers)
+
 You can use any of the models supported by the following providers:
 
 - OpenAI
-- Anthropic
-- Google
+- Anthropic Claude
+- Google Gemini
 - Mistral
 - Grok
 - DeepSeek
@@ -406,6 +412,10 @@ The complete environment details from the `environment` object in the CTRF repor
 ### Tool Context
 
 The complete tool details from the `tool` object in the CTRF report is provided to the AI model.
+
+## Charges
+
+You are responsible for any charges incurred from using the AI models. Make sure you are aware of the associated costs.
 
 ## CTRF Report Example
 
