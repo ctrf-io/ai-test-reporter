@@ -36,6 +36,9 @@ Explore more <a href="https://www.ctrf.io/integrations">integrations</a>
   - And more through standardized CTRF reports
 - 🎯 **Consolidated Insights**: Get high-level summaries of test suite failures to identify patterns and root causes
 - ⚡ **Framework Agnostic**: Works with any testing framework through CTRF reports
+- 📊 **Flexible Reporting**: AI summaries are embedded in your CTRF JSON report, allowing you to:
+  - Include AI analysis in your existing reporting workflows
+  - Programmatically customize how and where summaries appear in your Developer Tools
 
 ## Models
 
