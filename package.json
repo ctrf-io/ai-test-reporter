@@ -18,7 +18,20 @@
     "dist/",
     "README.md"
   ],
-  "keywords": ["ai", "ctrf", "test-reporter", "openai", "anthropic", "google", "mistral", "grok", "deepseek", "azure", "perplexity", "openrouter"],
+  "keywords": [
+    "ai",
+    "ctrf",
+    "test-reporter",
+    "openai",
+    "anthropic",
+    "google",
+    "mistral",
+    "grok",
+    "deepseek",
+    "azure",
+    "perplexity",
+    "openrouter"
+  ],
   "author": "Matthew Thomas",
   "repository": {
     "type": "git",
@@ -39,12 +52,13 @@
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "prettier": "^3.1.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.2",
+    "@aws-sdk/client-bedrock-runtime": "^3.864.0",
     "@google/generative-ai": "^0.21.0",
-        "openai": "^4.57.0",
+    "openai": "^4.57.0",
     "yargs": "^17.7.2"
   },
   "exports": {
