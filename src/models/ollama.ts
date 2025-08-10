@@ -1,31 +1,38 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
-import { type CtrfReport } from '../../types/ctrf'
-import { type Arguments } from '../index'
+import type { CtrfReport } from '../../types/ctrf'
+import type { Arguments } from '../index'
 import { stripAnsi } from '../common'
 import { generateConsolidatedSummary } from '../consolidated-summary'
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from '../constants'
 
-export async function gemini(
+export async function ollama(
   systemPrompt: string,
   prompt: string,
   args: Arguments
 ): Promise<string | null> {
-  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY ?? '')
-  const model = genAI.getGenerativeModel({ model: args.model ?? 'gemini-pro' })
+  const baseURL = process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434'
 
   try {
-    const combinedPrompt = `${systemPrompt}\n\n${stripAnsi(prompt)}`
-    const result = await model.generateContent(combinedPrompt)
-    const response = result.response
-    const text = response.text()
-    return text !== '' ? text : null
+    const response = await fetch(`${baseURL}/api/generate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: args.model ?? 'llama2',
+        prompt: `${systemPrompt}\n\n${stripAnsi(prompt)}`,
+        stream: false,
+      }),
+    })
+
+    const data = await response.json()
+    return (data.response as string) ?? null
   } catch (error) {
-    console.error(`Error invoking Gemini`, error)
+    console.error('Error invoking Ollama', error)
     return null
   }
 }
 
-export async function geminiFailedTestSummary(
+export async function ollamaFailedTestSummary(
   report: CtrfReport,
   args: Arguments,
   file?: string,
@@ -53,7 +60,7 @@ export async function geminiFailedTestSummary(
     }.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`
     const systemPrompt =
       args.systemPrompt ?? FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT
-    const response = await gemini(systemPrompt, prompt, args)
+    const response = await ollama(systemPrompt, prompt, args)
 
     if (response != null) {
       test.ai = response
@@ -75,7 +82,7 @@ export async function geminiFailedTestSummary(
     }
   }
   if (args.consolidate === true) {
-    await generateConsolidatedSummary(report, 'gemini', args)
+    await generateConsolidatedSummary(report, 'ollama', args)
   }
   return report
 }
