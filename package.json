@@ -1,15 +1,17 @@
 {
   "name": "ai-ctrf",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Generate AI summaries of test results using a wide range of AI models like OpenAI, Anthropic, Gemini, Mistral, Grok, DeepSeek, Azure, Perplexity, and OpenRouter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts --fix",
     "lint-check": "eslint . --ext .ts",
     "format": "prettier --write .",
-    "format-check": "prettier --check ."
+    "format-check": "prettier --check .",
+    "all": "npm run build && npm run lint && npm run format-check"
   },
   "bin": {
     "ai-ctrf": "./dist/index.js"
@@ -35,7 +37,11 @@
   "author": "Matthew Thomas",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ctrf-io/ai-test-reporter.git"
+    "url": "git+https://github.com/ctrf-io/ai-test-reporter.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "homepage": "https://ctrf.io",
   "license": "MIT",

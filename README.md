@@ -19,8 +19,11 @@ AI Test Reporter is a powerful tool that generates intelligent summaries of test
 </div>
 
 <p style="font-size: 14px; margin: 1rem 0;">
+
 Contributions are very welcome! <br/>
-Explore more <a href="https://www.ctrf.io/integrations">integrations</a>
+Explore more <a href="https://www.ctrf.io/integrations">integrations</a> <br/>
+<a href="https://app.formbricks.com/s/cmefs524mhlh1tl01gkpvefrb">Let us know your thoughts here</a>.
+
 </p>
 </div>
 
@@ -368,11 +371,12 @@ A message is sent to OpenRouter for each failed test.
 ### OpenRouter Options
 
 `--model`: OpenRouter model to use (default: anthropic/claude-3-opus). Available models include:
+
 - anthropic/claude-3-opus
 - google/gemini-pro
 - meta-llama/llama-2-70b-chat
 - mistral/mixtral-8x7b
-And many more from the OpenRouter catalog.
+  And many more from the OpenRouter catalog.
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
 
@@ -421,7 +425,7 @@ You are responsible for any charges incurred from using the AI models. Make sure
 
 ## CTRF Report Example
 
-``` json
+```json
 {
   "results": {
     "tool": {
@@ -438,14 +442,14 @@ You are responsible for any charges incurred from using the AI models. Make sure
       "stop": 1722511804528
     },
     "tests": [
-        {
-            "name": "should display profile information",
-            "status": "failed",
-            "duration": 800,
-            "message": "Assertion Failure: profile mismatch",
-            "trace": "ProfileTest.js:45...",
-            "ai": "The test failed because there was a profile mismatch at line 45 of the ProfileTest.js file. To resolve this issue,   review the code at line 45 to ensure that the expected profile information matches the actual data being displayed. Check for any discrepancies and make necessary adjustments to align the expected and actual profile information."
-        },
+      {
+        "name": "should display profile information",
+        "status": "failed",
+        "duration": 800,
+        "message": "Assertion Failure: profile mismatch",
+        "trace": "ProfileTest.js:45...",
+        "ai": "The test failed because there was a profile mismatch at line 45 of the ProfileTest.js file. To resolve this issue,   review the code at line 45 to ensure that the expected profile information matches the actual data being displayed. Check for any discrepancies and make necessary adjustments to align the expected and actual profile information."
+      }
     ]
   }
 }
