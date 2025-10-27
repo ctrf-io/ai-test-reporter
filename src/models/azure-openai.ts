@@ -1,7 +1,7 @@
 import { AzureOpenAI } from 'openai'
 import { type CtrfReport } from '../../types/ctrf'
 import { type Arguments } from '../index'
-import { stripAnsi } from '../common'
+import { saveUpdatedReport, stripAnsi } from '../common'
 import { generateConsolidatedSummary } from '../consolidated-summary'
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from '../constants'
 export async function azureOpenAI(
@@ -108,6 +108,9 @@ export async function azureOpenAIFailedTestSummary(
   }
   if (args.consolidate === true) {
     await generateConsolidatedSummary(report, 'azure', args)
+  }
+  if (file !== undefined) {
+    saveUpdatedReport(file, report)
   }
   return report
 }

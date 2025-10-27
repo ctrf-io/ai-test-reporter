@@ -1,6 +1,6 @@
 {
   "name": "ai-ctrf",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Generate AI summaries of test results using a wide range of AI models like OpenAI, Anthropic, Gemini, Mistral, Grok, DeepSeek, Azure, Perplexity, and OpenRouter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
