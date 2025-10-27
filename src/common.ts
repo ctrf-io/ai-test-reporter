@@ -17,6 +17,15 @@ export function validateCtrfFile(filePath: string): CtrfReport | null {
   }
 }
 
+export function saveUpdatedReport(filePath: string, report: CtrfReport): void {
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(report, null, 2), 'utf8')
+    console.log(`Updated report saved to ${filePath}`)
+  } catch (error) {
+    console.error('Failed to save the updated report:', error)
+  }
+}
+
 export function ansiRegex({ onlyFirst = false } = {}): RegExp {
   const pattern = [
     '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)',
