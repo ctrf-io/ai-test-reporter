@@ -16,7 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+      - name: Run all checks and build
+        run: npm run all
       - name: Build
         run: npx tsc
         if: github.event_name != 'schedule'
