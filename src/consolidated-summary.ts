@@ -29,12 +29,24 @@ export async function generateConsolidatedSummary(
     }
   }
 
-  const systemPrompt = `You are tasked with summarizing the results of a test run that contains test failures. Your goal is to provide a concise, high-level overview of what went wrong in the test run. Focus on identifying patterns or root causes that might explain why these tests failed. Keep the summary brief and informative, without repeating the test details or providing step-by-step instructions. Avoid unnecessary verbosity and focus on delivering actionable insights.   
+  let systemPrompt = `You are tasked with summarizing the results of a test run that contains test failures. Your goal is to provide a concise, high-level overview of what went wrong in the test run. Focus on identifying patterns or root causes that might explain why these tests failed. Keep the summary brief and informative, without repeating the test details or providing step-by-step instructions. Avoid unnecessary verbosity and focus on delivering actionable insights.   
                 Avoid:
                  - Including any code in your response.
                  - Adding generic conclusions or advice such as "By following these steps..."
                  - headings, bullet points, or special formatting.`
-  const consolidatedPrompt = `The following tests failed in the suite:\n\n${aiSummaries.join('\n')}\n\nA total of ${failedTests.length} tests failed in this test suite. Please provide a high-level summary of what went wrong across the suite and suggest what might be the root causes or patterns.`
+  if (
+    args.additionalSystemPromptContext != null &&
+    args.additionalSystemPromptContext !== ''
+  ) {
+    systemPrompt += `\n\n${args.additionalSystemPromptContext}`
+  }
+  let consolidatedPrompt = `The following tests failed in the suite:\n\n${aiSummaries.join('\n')}\n\nA total of ${failedTests.length} tests failed in this test suite. Please provide a high-level summary of what went wrong across the suite and suggest what might be the root causes or patterns.`
+  if (
+    args.additionalPromptContext != null &&
+    args.additionalPromptContext !== ''
+  ) {
+    consolidatedPrompt += `\n\nAdditional Context:\n${args.additionalPromptContext}`
+  }
 
   //     const systemPrompt = CONSOLIDATED_SUMMARY_SYSTEM_PROMPT;
   //     const consolidatedPrompt = `Analyze these ${failedTests.length} test failures from our test suite:

@@ -25,6 +25,8 @@ export interface Arguments {
   file?: string
   model?: string
   systemPrompt?: string
+  additionalSystemPromptContext?: string
+  additionalPromptContext?: string
   frequencyPenalty?: number
   maxTokens?: number
   presencePenalty?: number
@@ -245,6 +247,14 @@ const argv: Arguments = yargs(hideBin(process.argv))
     describe: 'System prompt to guide the AI',
     type: 'string',
     default: FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT,
+  })
+  .option('additionalSystemPromptContext', {
+    describe: 'Additional context to append to the system prompt',
+    type: 'string',
+  })
+  .option('additionalPromptContext', {
+    describe: 'Additional context to append to the user prompt',
+    type: 'string',
   })
   .option('frequencyPenalty', {
     describe: 'Frequency penalty parameter for the model',
