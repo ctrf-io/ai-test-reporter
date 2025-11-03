@@ -77,9 +77,21 @@ export async function customFailedTestSummary(
       break
     }
 
-    const prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`
-    const systemPrompt =
+    let prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`
+    if (
+      args.additionalPromptContext != null &&
+      args.additionalPromptContext !== ''
+    ) {
+      prompt += `\n\nAdditional Context:\n${args.additionalPromptContext}`
+    }
+    let systemPrompt =
       args.systemPrompt ?? FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT
+    if (
+      args.additionalSystemPromptContext != null &&
+      args.additionalSystemPromptContext !== ''
+    ) {
+      systemPrompt += `\n\n${args.additionalSystemPromptContext}`
+    }
     const response = await customService(systemPrompt, prompt, args, customUrl)
 
     if (response != null) {

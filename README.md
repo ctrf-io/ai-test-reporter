@@ -96,6 +96,10 @@ A message is sent to OpenAI for each failed test.
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
 
+`--additionalSystemPromptContext`: Additional context to append to the system prompt. This allows you to add extra instructions or context without replacing the entire system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt. This allows you to add extra instructions
+
 `--frequencyPenalty`: OpenAI frequency penalty parameter (default: 0).
 
 `--maxTokens`: Maximum number of tokens for the response.
@@ -133,6 +137,10 @@ A message is sent to Azure OpenAI for each failed test.
 `--model`: OpenAI model to use (default: gpt-3.5-turbo).
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--additionalSystemPromptContext`: Additional context to append to the system prompt. This allows you to add extra instructions or context without replacing the entire system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
 
 `--frequencyPenalty`: OpenAI frequency penalty parameter (default: 0).
 
@@ -172,6 +180,10 @@ A message is sent to Claude for each failed test.
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
 
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
+
 `--maxTokens`: Maximum number of tokens for the response.
 
 `--temperature`: Sampling temperature.
@@ -204,6 +216,10 @@ A message is sent to Grok for each failed test.
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
 
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
+
 `--maxTokens`: Maximum number of tokens for the response.
 
 `--temperature`: Sampling temperature.
@@ -235,6 +251,10 @@ A message is sent to DeepSeek for each failed test.
 `--model`: DeepSeek model to use (default: deepseek-coder).
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
 
 `--maxTokens`: Maximum number of tokens for the response.
 
@@ -269,6 +289,10 @@ Mistral offers free API credits upon signup, making it a great option to test th
 `--model`: Mistral model to use (default: mistral-medium).
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
 
 `--maxTokens`: Maximum number of tokens for the response.
 
@@ -306,6 +330,10 @@ Google offers free API credits for Gemini, providing a cost-effective way to try
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
 
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
+
 `--maxTokens`: Maximum number of tokens for the response.
 
 `--temperature`: Sampling temperature.
@@ -339,6 +367,10 @@ A message is sent to Perplexity for each failed test.
 `--model`: Perplexity model to use (default: pplx-7b-online).
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
 
 `--maxTokens`: Maximum number of tokens for the response.
 
@@ -381,6 +413,10 @@ A message is sent to OpenRouter for each failed test.
   And many more from the OpenRouter catalog.
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
 
 `--maxTokens`: Maximum number of tokens for the response.
 
@@ -439,6 +475,10 @@ If no API key is provided, the tool will fall back to checking `OPENAI_API_KEY` 
 
 `--systemPrompt`: Custom system prompt to guide the AI response.
 
+`--additionalSystemPromptContext`: Additional context to append to the system prompt.
+
+`--additionalPromptContext`: Additional context to append to the user prompt.
+
 `--frequencyPenalty`: Frequency penalty parameter (default: 0).
 
 `--maxTokens`: Maximum number of tokens for the response.
@@ -465,6 +505,24 @@ ollama serve
 
 # Run AI test reporter
 npx ai-ctrf custom ctrf-report.json --url http://localhost:11434/v1 --model llama2
+```
+
+## Additional Context Options
+
+The `--additionalSystemPromptContext` and `--additionalPromptContext` options allow you to provide extra context to help the AI better understand and analyze your test failures. These are available for all AI providers.
+
+### Example
+
+```bash
+# Add project-specific context
+npx ai-ctrf openai ctrf-report.json \
+  --additionalPromptContext "This is from our production environment running on AWS" \
+  --additionalSystemPromptContext "Focus on database connection and timeout issues"
+
+# Add team-specific guidelines
+npx ai-ctrf claude ctrf-report.json \
+  --additionalSystemPromptContext "Our team uses React 18 and follows the Airbnb style guide" \
+  --additionalPromptContext "Tests are running in CI/CD pipeline on GitHub Actions"
 ```
 
 ## Test Information Analyzed by AI Model
