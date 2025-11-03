@@ -9,12 +9,14 @@ import { gemini } from './models/gemini'
 import { perplexity } from './models/perplexity'
 import { openRouter } from './models/openrouter'
 import { bedrock } from './models/bedrock'
+import { customService } from './models/custom'
 // import { CONSOLIDATED_SUMMARY_SYSTEM_PROMPT } from "./constants";
 
 export async function generateConsolidatedSummary(
   report: CtrfReport,
   model: string,
-  args: Arguments
+  args: Arguments,
+  customUrl?: string
 ): Promise<void> {
   const failedTests = report.results.tests.filter(
     (test) => test.status === 'failed'
@@ -81,6 +83,9 @@ export async function generateConsolidatedSummary(
   } else if (model === 'bedrock') {
     consolidatedSummary =
       (await bedrock(systemPrompt, consolidatedPrompt, args)) ?? ''
+  } else if (model === 'custom') {
+    consolidatedSummary =
+      (await customService(systemPrompt, consolidatedPrompt, args, customUrl)) ?? ''
   }
 
   if (consolidatedSummary !== '') {
