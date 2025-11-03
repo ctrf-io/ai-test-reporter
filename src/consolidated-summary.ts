@@ -85,7 +85,12 @@ export async function generateConsolidatedSummary(
       (await bedrock(systemPrompt, consolidatedPrompt, args)) ?? ''
   } else if (model === 'custom') {
     consolidatedSummary =
-      (await customService(systemPrompt, consolidatedPrompt, args, customUrl)) ?? ''
+      (await customService(
+        systemPrompt,
+        consolidatedPrompt,
+        args,
+        customUrl
+      )) ?? ''
   }
 
   if (consolidatedSummary !== '') {

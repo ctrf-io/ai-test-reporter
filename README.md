@@ -409,6 +409,7 @@ npx ai-ctrf custom <path-to-ctrf-report> --url <your-custom-api-url>
 An AI summary for each failed test will be added to your test report.
 
 This option allows you to use any OpenAI-compatible API endpoint. This is useful for:
+
 - Self-hosted services (like LocalAI, text-generation-webui, etc.)
 - Custom in-house AI solutions
 - Local development with Ollama's OpenAI-compatible endpoint

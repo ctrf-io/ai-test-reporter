@@ -315,7 +315,7 @@ const executeCommand = async (
 }
 
 if (argv.url != null) {
-  argv.customUrl = argv.url as string
+  argv.customUrl = argv.url
 }
 
 void Promise.resolve().then(async () => {
