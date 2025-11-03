@@ -2,30 +2,14 @@
 
 AI Test Reporter is a powerful tool that generates intelligent summaries of test results using a wide range of AI models. With access to over 300 models through various providers (OpenAI, Anthropic Claude, Google Gemini, Mistral, Perplexity, OpenRouter, and more), it analyzes failing tests and provides actionable insights about what went wrong and how to fix it.
 
-<div align="center">
-<div style="padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border: 1px solid #30363d;">
-<span style="font-size: 23px;">💚</span>
-<h3 style="margin: 1rem 0;">CTRF tooling is open source and free to use</h3>
-<p style="font-size: 16px;">You can support the project with a follow and a star</p>
+## Support Us
 
-<div style="margin-top: 1.5rem;">
-<a href="https://github.com/ctrf-io/ai-test-reporter">
-<img src="https://img.shields.io/github/stars/ctrf-io/ai-test-reporter?style=for-the-badge&color=2ea043" alt="GitHub stars">
-</a>
-<a href="https://github.com/ctrf-io">
-<img src="https://img.shields.io/github/followers/ctrf-io?style=for-the-badge&color=2ea043" alt="GitHub followers">
-</a>
-</div>
-</div>
+**AI Test Reporter is community-built and open source.**
 
-<p style="font-size: 14px; margin: 1rem 0;">
+You can support the project by:
 
-Contributions are very welcome! <br/>
-Explore more <a href="https://www.ctrf.io/integrations">integrations</a> <br/>
-<a href="https://app.formbricks.com/s/cmefs524mhlh1tl01gkpvefrb">Let us know your thoughts here</a>.
-
-</p>
-</div>
+- Giving this repository a ⭐
+- [Following the @ctrf organization on GitHub](https://github.com/ctrf-io)
 
 ## Why Use AI Test Reporter?
 
@@ -38,10 +22,12 @@ Explore more <a href="https://www.ctrf.io/integrations">integrations</a> <br/>
   - Slack / Teams notifications
   - And more through standardized CTRF reports
 - 🎯 **Consolidated Insights**: Get high-level summaries of test suite failures to identify patterns and root causes
+- 📊 **Structured JSON Analysis**: Generate categorized breakdown of issues (code, timeout, application) with actionable recommendations
 - ⚡ **Framework Agnostic**: Works with any testing framework through CTRF reports
-- 📊 **Flexible Reporting**: AI summaries are embedded in your CTRF JSON report, allowing you to:
+- 🔗 **Flexible Reporting**: AI summaries are embedded in your CTRF JSON report, allowing you to:
   - Include AI analysis in your existing reporting workflows
   - Programmatically customize how and where summaries appear in your Developer Tools
+  - Export structured JSON for integration with monitoring and analytics tools
 
 ## Models
 
@@ -114,7 +100,9 @@ A message is sent to OpenAI for each failed test.
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## Azure OpenAI
 
@@ -156,7 +144,9 @@ A message is sent to Azure OpenAI for each failed test.
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## Claude
 
@@ -192,7 +182,9 @@ A message is sent to Claude for each failed test.
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## Grok
 
@@ -228,7 +220,9 @@ A message is sent to Grok for each failed test.
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## DeepSeek
 
@@ -264,7 +258,9 @@ A message is sent to DeepSeek for each failed test.
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## Mistral
 
@@ -304,7 +300,9 @@ Mistral offers free API credits upon signup, making it a great option to test th
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## Google Gemini
 
@@ -344,7 +342,9 @@ Google offers free API credits for Gemini, providing a cost-effective way to try
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## Perplexity
 
@@ -382,7 +382,9 @@ A message is sent to Perplexity for each failed test.
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## OpenRouter
 
@@ -432,7 +434,9 @@ A message is sent to OpenRouter for each failed test.
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ## Custom OpenAI-Compatible Services
 
@@ -493,7 +497,9 @@ If no API key is provided, the tool will fall back to checking `OPENAI_API_KEY` 
 
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
-`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+`--consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+`--json-analysis`: Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations (default: false)
 
 ### Example Usage
 
@@ -505,6 +511,52 @@ ollama serve
 
 # Run AI test reporter
 npx ai-ctrf custom ctrf-report.json --url http://localhost:11434/v1 --model llama2
+```
+
+## Structured JSON Analysis
+
+In addition to generating individual test summaries, AI Test Reporter can provide a **structured JSON analysis** that categorizes issues and provides actionable recommendations.
+
+### What is JSON Analysis?
+
+The `--json-analysis` flag generates a structured breakdown of your test failures:
+
+```json
+{
+  "summary": "High-level overview of what went wrong",
+  "code_issues": "Detailed description of code-related problems",
+  "timeout_issues": "Detailed description of timeout and performance issues",
+  "application_issues": "Detailed description of application-level problems",
+  "recommendations": "Actionable recommendations to fix the issues"
+}
+```
+
+Add the `--json-analysis` flag to any model command:
+
+```bash
+# OpenAI
+npx ai-ctrf openai ctrf-report.json --json-analysis
+
+# Claude
+npx ai-ctrf claude ctrf-report.json --json-analysis
+
+# Any other model
+npx ai-ctrf <model> ctrf-report.json --json-analysis
+```
+
+### Example Use Cases
+
+```bash
+# Parse specific fields in CI/CD
+result=$(npx ai-ctrf openai report.json --json-analysis --log false)
+echo "$result" | jq '.recommendations'
+
+# Send to monitoring or analytics tools
+npx ai-ctrf openai report.json --json-analysis --log false | \
+  curl -X POST https://api.example.com/test-analysis
+
+# Save for later processing
+npx ai-ctrf openai report.json --json-analysis > analysis.json
 ```
 
 ## Additional Context Options

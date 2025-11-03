@@ -5,6 +5,7 @@ import { hideBin } from 'yargs/helpers'
 
 import { validateCtrfFile } from './common'
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from './constants'
+import { generateJsonSummary } from './json-summary'
 
 import type { CtrfReport } from '../types/ctrf'
 import { azureOpenAIFailedTestSummary } from './models/azure-openai'
@@ -38,6 +39,7 @@ export interface Arguments {
   deploymentId?: string
   customUrl?: string
   url?: string
+  jsonAnalysis?: boolean
 }
 
 const argv: Arguments = yargs(hideBin(process.argv))
@@ -297,6 +299,12 @@ const argv: Arguments = yargs(hideBin(process.argv))
     type: 'boolean',
     default: true,
   })
+  .option('json-analysis', {
+    describe:
+      'Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations',
+    type: 'boolean',
+    default: false,
+  })
   .help()
   .alias('help', 'h')
   .parseSync()
@@ -317,6 +325,18 @@ const executeCommand = async (
       const report = validateCtrfFile(argv.file)
       if (report !== null) {
         await modelFunction(report, argv, file, true)
+
+        if (argv.jsonAnalysis === true) {
+          const result = await generateJsonSummary(
+            report,
+            command,
+            argv,
+            argv.customUrl
+          )
+          if (result !== null) {
+            console.log(JSON.stringify(result, null, 2))
+          }
+        }
       }
     } catch (error) {
       console.error('Failed to read file:', error)
@@ -357,3 +377,6 @@ export {
   ollamaFailedTestSummary,
   customFailedTestSummary,
 }
+
+export { generateJsonSummary } from './json-summary'
+export type { JsonSummaryResponse } from './json-summary'
