@@ -544,16 +544,6 @@ npx ai-ctrf claude ctrf-report.json --json-analysis
 npx ai-ctrf <model> ctrf-report.json --json-analysis
 ```
 
-### What Happens with `--json-analysis`
-
-When you use this flag, the tool will:
-
-1. ✅ Generate individual test summaries for each failed test
-2. ✅ Save summaries to the CTRF report file
-3. ✅ Generate consolidated summary (if `--consolidate` is enabled)
-4. ✅ Create structured JSON analysis with categorized issues
-5. ✅ Output the JSON to console for programmatic use
-
 ### Example Use Cases
 
 ```bash
