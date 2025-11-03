@@ -71,13 +71,6 @@
         "name": "should clean up user session on logout",
         "status": "other",
         "duration": 1050
-      },
-      {
-        "name": "should allow user to change password",
-        "status": "passed",
-        "duration": 1300,
-        "flaky": false,
-        "retries": 3
       }
     ]
   }
