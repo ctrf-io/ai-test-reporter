@@ -31,6 +31,7 @@ Explore more <a href="https://www.ctrf.io/integrations">integrations</a> <br/>
 
 - 🤖 **Smart Analysis**: Get AI-powered explanations of why tests failed and suggestions for fixes
 - 🔌 **Multiple Providers**: Choose from 300+ AI models across different providers
+- 🛠️ **Custom Services**: Use your own OpenAI-compatible services (in-house solutions, LocalAI, Ollama, etc.)
 - 💰 **Cost-Effective Options**: Start with providers offering free credits like Mistral and Google Gemini
 - 🔄 **Developer Tool Integration**: Seamlessly integrate AI summaries into your workflow:
   - GitHub Actions and Pull Requests
@@ -61,6 +62,7 @@ You can use any of the models supported by the following providers:
 - Azure OpenAI
 - Perplexity
 - OpenRouter
+- Custom OpenAI-compatible services (in-house solutions, LocalAI, Ollama, etc.)
 
 You use your own API keys for the models you select.
 
@@ -395,6 +397,75 @@ A message is sent to OpenRouter for each failed test.
 `--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
 
 `consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+## Custom OpenAI-Compatible Services
+
+Run the following command:
+
+```bash
+npx ai-ctrf custom <path-to-ctrf-report> --url <your-custom-api-url>
+```
+
+An AI summary for each failed test will be added to your test report.
+
+This option allows you to use any OpenAI-compatible API endpoint. This is useful for:
+
+- Self-hosted services (like LocalAI, text-generation-webui, etc.)
+- Custom in-house AI solutions
+- Local development with Ollama's OpenAI-compatible endpoint
+- Other OpenAI-compatible services
+
+### Environment Variables
+
+You can set the custom URL via environment variable instead of the CLI option:
+
+```bash
+export AI_CTRF_CUSTOM_URL=http://localhost:8080/v1
+```
+
+For authentication, you can use:
+
+```bash
+export AI_CTRF_CUSTOM_API_KEY=your-api-key
+```
+
+If no API key is provided, the tool will fall back to checking `OPENAI_API_KEY` or use a placeholder value if the API doesn't require authentication.
+
+### Custom Options
+
+`--url`: Base URL for the custom OpenAI-compatible API (e.g., `http://localhost:8080/v1`). Can also be set via `AI_CTRF_CUSTOM_URL` environment variable.
+
+`--model`: Model to use (default: gpt-4o). This should match the model name your custom API expects.
+
+`--systemPrompt`: Custom system prompt to guide the AI response.
+
+`--frequencyPenalty`: Frequency penalty parameter (default: 0).
+
+`--maxTokens`: Maximum number of tokens for the response.
+
+`--presencePenalty`: Presence penalty parameter (default: 0).
+
+`--temperature`: Sampling temperature (conflicts with topP).
+
+`--topP`: Top-p sampling parameter (conflicts with temperature).
+
+`--log`: Whether to log the AI responses to the console (default: true).
+
+`--maxMessages`: Limit the number of failing tests to send for summarization in the LLM request. This helps avoid overwhelming the model when dealing with reports that have many failing tests. (default: 10)
+
+`consolidate`: Consolidate and summarize multiple AI summaries into a higher-level overview (default: true)
+
+### Example Usage
+
+Using Ollama with OpenAI-compatible endpoint:
+
+```bash
+# Start Ollama with OpenAI-compatible API
+ollama serve
+
+# Run AI test reporter
+npx ai-ctrf custom ctrf-report.json --url http://localhost:11434/v1 --model llama2
+```
 
 ## Test Information Analyzed by AI Model
 

@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-// External dependencies
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
 
-// Internal utilities
 import { validateCtrfFile } from './common'
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from './constants'
 
@@ -20,6 +18,7 @@ import { ollamaFailedTestSummary } from './models/ollama'
 import { openAIFailedTestSummary } from './models/openai'
 import { openRouterFailedTestSummary } from './models/openrouter'
 import { perplexityFailedTestSummary } from './models/perplexity'
+import { customFailedTestSummary } from './models/custom'
 
 export interface Arguments {
   _: Array<string | number>
@@ -35,6 +34,8 @@ export interface Arguments {
   maxMessages?: number
   consolidate?: boolean
   deploymentId?: string
+  customUrl?: string
+  url?: string
 }
 
 const argv: Arguments = yargs(hideBin(process.argv))
@@ -218,6 +219,28 @@ const argv: Arguments = yargs(hideBin(process.argv))
         })
     }
   )
+  .command(
+    'custom <file>',
+    'Generate test summary from a CTRF report using a custom OpenAI-compatible API',
+    (yargs) => {
+      return yargs
+        .positional('file', {
+          describe: 'Path to the CTRF file',
+          type: 'string',
+        })
+        .option('url', {
+          describe:
+            'Base URL for the custom OpenAI-compatible API (e.g., http://localhost:8080/v1)',
+          type: 'string',
+          demandOption: false,
+        })
+        .option('model', {
+          describe: 'Model to use',
+          type: 'string',
+          default: 'gpt-4o',
+        })
+    }
+  )
   .option('systemPrompt', {
     describe: 'System prompt to guide the AI',
     type: 'string',
@@ -270,7 +293,6 @@ const argv: Arguments = yargs(hideBin(process.argv))
 
 const file = argv.file ?? 'ctrf/ctrf-report.json'
 
-// Command handlers
 const executeCommand = async (
   command: string,
   modelFunction: (
@@ -292,7 +314,10 @@ const executeCommand = async (
   }
 }
 
-// Execute commands
+if (argv.url != null) {
+  argv.customUrl = argv.url
+}
+
 void Promise.resolve().then(async () => {
   await executeCommand('openai', openAIFailedTestSummary)
   await executeCommand('claude', claudeFailedTestSummary)
@@ -305,6 +330,7 @@ void Promise.resolve().then(async () => {
   await executeCommand('openrouter', openRouterFailedTestSummary)
   await executeCommand('bedrock', bedrockFailedTestSummary)
   await executeCommand('ollama', ollamaFailedTestSummary)
+  await executeCommand('custom', customFailedTestSummary)
 })
 
 export {
@@ -319,4 +345,5 @@ export {
   openRouterFailedTestSummary,
   bedrockFailedTestSummary,
   ollamaFailedTestSummary,
+  customFailedTestSummary,
 }
