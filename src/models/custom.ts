@@ -1,9 +1,19 @@
 import OpenAI from 'openai'
-import { type CtrfReport } from '../../types/ctrf'
+import { type Report } from '../../types/ctrf'
 import { type Arguments } from '../index'
-import { saveUpdatedReport, stripAnsi } from '../common'
+import {
+  saveUpdatedReport,
+  stripAnsi,
+  generateAssessmentPromptContext,
+  getAssessmentIcon,
+} from '../common'
 import { generateConsolidatedSummary } from '../consolidated-summary'
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from '../constants'
+import {
+  filterTestsByAssessment,
+  getAssessmentConfig,
+  type AssessmentType,
+} from '../assess'
 
 export async function customService(
   systemPrompt: string,
@@ -54,16 +64,19 @@ export async function customService(
 }
 
 export async function customFailedTestSummary(
-  report: CtrfReport,
+  report: Report,
   args: Arguments,
   file?: string,
   log = false,
   customUrl?: string
-): Promise<CtrfReport> {
-  const failedTests = report.results.tests.filter(
-    (test) => test.status === 'failed'
+): Promise<Report> {
+  const assessmentType: AssessmentType = args.assess ?? 'failed'
+  const assessmentConfig = getAssessmentConfig(assessmentType)
+  const testsToAnalyze = filterTestsByAssessment(
+    report.results.tests,
+    assessmentType
   )
-  failedTests.forEach((test) => {
+  testsToAnalyze.forEach((test) => {
     if (test.extra != null) {
       delete test.extra
     }
@@ -72,12 +85,12 @@ export async function customFailedTestSummary(
   let logged = false
   let messageCount = 0
 
-  for (const test of failedTests) {
+  for (const test of testsToAnalyze) {
     if (args.maxMessages != null && messageCount >= args.maxMessages) {
       break
     }
 
-    let prompt = `Report:\n${JSON.stringify(test, null, 2)}.\n\nTool:${report.results.tool.name}.\n\n Please provide a human-readable failure summary that explains why you think the test might have failed and ways to fix`
+    let prompt = generateAssessmentPromptContext(test, report, assessmentType)
     if (
       args.additionalPromptContext != null &&
       args.additionalPromptContext !== ''
@@ -108,7 +121,9 @@ export async function customFailedTestSummary(
         logged = true
       }
       if (args.log === true) {
-        console.log(`❌ Failed Test: ${test.name}\n`)
+        const icon = getAssessmentIcon(assessmentType)
+        console.log(`${icon} ${assessmentConfig.label}: ${test.name}
+`)
         console.log(`${response}\n`)
       }
     }

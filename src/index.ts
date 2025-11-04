@@ -6,8 +6,10 @@ import { hideBin } from 'yargs/helpers'
 import { validateCtrfFile } from './common'
 import { FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT } from './constants'
 import { generateJsonSummary } from './json-summary'
+import { analyzeReportInsights } from './report-insights'
+import { type AssessmentType, isValidAssessmentType } from './assess'
 
-import type { CtrfReport } from '../types/ctrf'
+import type { Report } from '../types/ctrf'
 import { azureOpenAIFailedTestSummary } from './models/azure-openai'
 import { bedrockFailedTestSummary } from './models/bedrock'
 import { claudeFailedTestSummary } from './models/claude'
@@ -36,13 +38,15 @@ export interface Arguments {
   log?: boolean
   maxMessages?: number
   consolidate?: boolean
+  insights?: boolean
   deploymentId?: string
   customUrl?: string
   url?: string
   jsonAnalysis?: boolean
+  assess?: AssessmentType
 }
 
-const argv: Arguments = yargs(hideBin(process.argv))
+const argv = yargs(hideBin(process.argv))
   .command(
     'openai <file>',
     'Generate test summary from a CTRF report',
@@ -299,32 +303,67 @@ const argv: Arguments = yargs(hideBin(process.argv))
     type: 'boolean',
     default: true,
   })
+  .option('insights', {
+    describe:
+      'Analyze report-level insights data and add AI summary to report.results.extra.aiInsights',
+    type: 'boolean',
+    default: false,
+  })
   .option('json-analysis', {
     describe:
       'Generate structured JSON analysis with categorized issues (code, timeout, application) and recommendations',
     type: 'boolean',
     default: false,
   })
+  .option('assess', {
+    describe: 'What to assess: failed (default) or flaky',
+    type: 'string',
+    default: 'failed',
+    choices: ['failed', 'flaky'],
+  })
   .help()
   .alias('help', 'h')
-  .parseSync()
+  .parseSync() as Arguments
 
 const file = argv.file ?? 'ctrf/ctrf-report.json'
+
+// Validate and set the assessment type
+if (argv.assess !== undefined) {
+  const assessValue = String(argv.assess)
+  if (!isValidAssessmentType(assessValue)) {
+    console.error(
+      `Invalid assessment type: ${assessValue}. Valid options: failed, flaky`
+    )
+    process.exit(1)
+  }
+  // Cast assess to AssessmentType after validation
+  argv.assess = assessValue as AssessmentType
+}
 
 const executeCommand = async (
   command: string,
   modelFunction: (
-    report: CtrfReport,
+    report: Report,
     argv: Arguments,
     file?: string,
     log?: boolean
-  ) => Promise<CtrfReport>
+  ) => Promise<Report>
 ): Promise<void> => {
   if (argv._.includes(command) && argv.file != null) {
     try {
       const report = validateCtrfFile(argv.file)
       if (report !== null) {
         await modelFunction(report, argv, file, true)
+
+        if (argv.insights === true) {
+          await analyzeReportInsights(
+            report,
+            command,
+            argv,
+            argv.customUrl,
+            file
+          )
+        }
 
         if (argv.jsonAnalysis === true) {
           const result = await generateJsonSummary(
@@ -380,3 +419,4 @@ export {
 
 export { generateJsonSummary } from './json-summary'
 export type { JsonSummaryResponse } from './json-summary'
+export { analyzeReportInsights } from './report-insights'

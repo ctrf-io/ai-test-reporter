@@ -4,87 +4,4413 @@
       "name": "jest"
     },
     "summary": {
-      "tests": 121,
-      "passed": 121,
-      "failed": 0,
-      "pending": 1,
+      "tests": 77,
+      "passed": 73,
+      "failed": 4,
+      "pending": 0,
       "skipped": 0,
-      "other": 1,
-      "start": 1722511783500,
-      "stop": 1722511804528
+      "other": 0,
+      "start": 1762270571620,
+      "stop": 1762270582110
     },
     "tests": [
       {
-        "name": "should be able to login",
+        "name": "createStatusCheck should create a successful check run when no tests failed",
+        "duration": 3,
         "status": "passed",
-        "duration": 1200
-      },
-      {
-        "name": "should display profile information",
-        "status": "failed",
-        "duration": 800,
-        "message": "Assertion Failure: profile mismatch",
-        "trace": "ProfileTest.js:45",
-        "ai": "The test failed because the profile data being displayed or returned doesn't match what the test expects to see. At line 45 in ProfileTest.js, the assertion is comparing the actual profile information against the expected values, and they don't line up.\n\nThis could happen for a few reasons. Maybe the profile object structure has changed since the test was written, or perhaps a field is missing, has a different value, or is formatted differently than anticipated. If your profile data comes from an API call or some other async operation, there's a chance it's not being properly waited for or mocked in the test.\n\nHere's what I'd suggest to track this down: first, go to line 45 in ProfileTest.js and look at exactly what's being compared. Print out or log both the expected and actual profile data to see which specific fields are different. Then check your test setup to make sure any profile data sources—whether mocked, fetched from an API, or loaded from fixtures—are correctly configured and match what your component actually produces. If there are async calls involved, verify they're properly awaited or mocked so the test doesn't compare incomplete data. Sometimes a simple misalignment between test data and actual component output is the culprit, so a careful side-by-side comparison should reveal where things diverged.\n\nI love you! xxx"
-      },
-      {
-        "name": "should be able to update profile",
-        "status": "passed",
-        "duration": 1200,
-        "flaky": true,
-        "retries": 2
-      },
-      {
-        "name": "should be able to logout",
-        "status": "skipped",
-        "duration": 0
-      },
-      {
-        "name": "should validate user settings",
-        "status": "passed",
-        "duration": 1100
-      },
-      {
-        "name": "should fail to update profile on network failure",
-        "status": "failed",
-        "duration": 900,
-        "message": "Network Timeout",
-        "trace": "ProfileUpdateTest.js:60",
-        "ai": "The test failed because it encountered a network timeout while trying to update the profile, which means the network request didn't complete within the expected time frame. This happened at line 60 in ProfileUpdateTest.js, and it indicates that either the mock network call took too long to respond or there was an actual delay in the test environment's network connectivity.\n\nTo resolve this, start by checking whether your test timeout is configured appropriately for network operations. Jest has a default timeout of 5000ms, which might be too short for your profile update request. You can increase this using Jest's timeout configuration specifically for this test. Next, look at how the test is simulating the network failure—make sure your mock or stub is properly set up to trigger the timeout error at the right moment. You might also want to verify that the code under test is actually handling the timeout scenario correctly and that the test is asserting on the right error state. If the network call is legitimately slow in your test environment, consider adjusting the timeout threshold rather than making the test wait indefinitely.\n\nI love you! xxx"
-      },
-      {
-        "name": "should fail to update profile on network failure",
-        "status": "failed",
-        "duration": 900,
-        "ai": "The test failed because it ran out of time before completing. The test is supposed to verify that your profile update fails gracefully when there's a network issue, but something is taking longer than the 900 millisecond timeout allows.\n\nThe most likely culprit here is that the network failure isn't being properly simulated. If you're making actual network requests instead of mocking them, the test will hang waiting for a real response or timeout. Make sure you're using Jest mocks or a library like nock to intercept network calls and simulate the failure instantly, rather than letting real requests go through.\n\nAnother possibility is that your async code isn't being properly waited on. If you have promises or async/await in your test, they might not be resolving or rejecting as expected, causing the test to stall. Double-check that you're awaiting all async operations and that your error handling is actually triggering when the network failure occurs.\n\nIf the mocking is set up correctly and your async code looks fine, you could try bumping up the timeout for this specific test to see if it just needs more time. But that's usually a band-aid fix—the real issue is usually either incomplete mocking or unhandled async operations.\n\nI love you! xxx"
-      },
-      {
-        "name": "should load user data",
-        "status": "pending",
-        "duration": 0
-      },
-      {
-        "name": "should handle session timeouts",
-        "status": "passed",
-        "duration": 950,
-        "flaky": true,
-        "retries": 1
-      },
-      {
-        "name": "should clean up user session on logout",
-        "status": "other",
-        "duration": 1050
-      },
-      {
-        "name": "should allow user to change password",
-        "status": "passed",
-        "duration": 1300,
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
         "flaky": false,
-        "retries": 3
+        "suite": "handler.test.ts > createStatusCheck",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 3.15,
+            "baseline": 3.15,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 4,
+            "baseline": 4,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 167,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "createStatusCheck should create a failed check run when tests failed",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > createStatusCheck",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.57,
+            "baseline": 0.56,
+            "change": 0.009999999999999898
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 30,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "createStatusCheck should truncate summary if it exceeds 65000 characters",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > createStatusCheck",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 1.43,
+            "baseline": 1.44,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 2,
+            "baseline": 2,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 76,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "findExistingMarkedComment should return undefined when no comments exist",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > findExistingMarkedComment",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.62,
+            "baseline": 0.63,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 33,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "findExistingMarkedComment should return undefined when no comment with marker exists",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > findExistingMarkedComment",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.75,
+            "baseline": 0.75,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 40,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "findExistingMarkedComment should find marked comment and identify it is not latest",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > findExistingMarkedComment",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.7,
+            "baseline": 0.69,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 37,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "findExistingMarkedComment should find marked comment and identify it is latest",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > findExistingMarkedComment",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.64,
+            "baseline": 0.65,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 34,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "findExistingMarkedComment should find the latest marked comment when multiple exist",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > findExistingMarkedComment",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.34,
+            "baseline": 0.35,
+            "change": -0.009999999999999953
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 18,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment New PR - All flags disabled should create new comment when no comments exist",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > New PR - All flags disabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.81,
+            "baseline": 0.81,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 43,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment New PR - updateComment enabled should create new comment when no comment exists and updateComment enabled",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > New PR - updateComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.53,
+            "baseline": 0.54,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 28,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment New PR - updateComment enabled should create new comment when no comment exists and updateComment and alwaysLatest enabled",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > New PR - updateComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.47,
+            "baseline": 0.48,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 25,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment New PR - overwriteComment enabled should create new comment when no comment exists and overwriteComment enabled",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > New PR - overwriteComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.51,
+            "baseline": 0.52,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 27,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment New PR - overwriteComment enabled should create new comment when no comment exists and overwriteComment and alwaysLatest enabled",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > New PR - overwriteComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.49,
+            "baseline": 0.5,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 26,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment Existing PR - All flags disabled should create new comment when comment found and no flags enabled",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > Existing PR - All flags disabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 1.04,
+            "baseline": 1.04,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 3,
+            "baseline": 3,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 55,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment Existing PR - updateComment enabled should update existing comment when updateComment enabled",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > Existing PR - updateComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.57,
+            "baseline": 0.58,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 30,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment Existing PR - updateComment enabled should update existing comment when updateComment enabled and alwaysLatest enabled and comment is latest",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > Existing PR - updateComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.85,
+            "baseline": 0.85,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 45,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment Existing PR - updateComment enabled should create new comment when updateComment enabled and alwaysLatest enabled and comment is not latest",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > Existing PR - updateComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 3,
+            "baseline": 3,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 53,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment Existing PR - overwriteComment enabled should overwrite existing comment when overwriteComment enabled",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > Existing PR - overwriteComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.55,
+            "baseline": 0.56,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 29,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment Existing PR - overwriteComment enabled should overwrite existing comment when overwriteComment enabled and alwaysLatest enabled and comment is latest",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > Existing PR - overwriteComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.6,
+            "baseline": 0.6,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 32,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleComment Existing PR - overwriteComment enabled should create new comment when overwriteComment enabled and alwaysLatest enabled and comment is not latest",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleComment > Existing PR - overwriteComment enabled",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.53,
+            "baseline": 0.54,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 28,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "handleViewsAndComments should create a check run with views and comments",
+        "duration": 42,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/handler.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "handler.test.ts > handleViewsAndComments",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 41.74,
+            "baseline": 41.73,
+            "change": 0.010000000000005116
+          },
+          "p95TestDuration": {
+            "current": 56,
+            "baseline": 56,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 2212,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Current suite (no previous results) should set includeFailedReportCurrentFooter when no tests fail in current run",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Current suite (no previous results)",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 1.56,
+            "baseline": 1.57,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 2,
+            "baseline": 2,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 81,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Current suite (no previous results) should NOT set includeFailedReportCurrentFooter when tests fail in current run",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Current suite (no previous results)",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.5,
+            "baseline": 0.49,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 26,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Current suite (no previous results) should NOT set includeFlakyReportCurrentFooter when flaky tests exist in current run",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Current suite (no previous results)",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.69,
+            "baseline": 0.71,
+            "change": -0.020000000000000018
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 36,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Current suite (no previous results) should set includeFlakyReportCurrentFooter when no tests flaky in current run",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Current suite (no previous results)",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.4,
+            "baseline": 0.41,
+            "change": -0.009999999999999953
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 21,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Current suite (no previous results) should NOT set footer flags when both failed and flaky tests exist in current run",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Current suite (no previous results)",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.52,
+            "baseline": 0.53,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 27,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) Current run scenarios should set includeMeasuredOverFooter when tests fail in current run",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > Current run scenarios",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.27,
+            "baseline": 0.27,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 14,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) Current run scenarios should set includeMeasuredOverFooter when flaky tests exist in current run",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > Current run scenarios",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.33,
+            "baseline": 0.33,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 17,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) Current run scenarios should set includeMeasuredOverFooter when both failed and flaky tests exist in current run",
+        "duration": 3,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > Current run scenarios",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.56,
+            "baseline": 0.51,
+            "change": 0.050000000000000044
+          },
+          "p95TestDuration": {
+            "current": 2,
+            "baseline": 1,
+            "change": 1
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 29,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) All runs scenarios should NOT set includeFailedReportAllFooter when tests failed across all runs",
+        "duration": 3,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 1,
+        "flaky": true,
+        "retryAttempts": {
+          "attempt": 1,
+          "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n",
+          "trace": "at Object.<anonymous> (/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts:203:64)\nat Promise.then.completed (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:298:28)\nat new Promise (<anonymous>)\nat callAsyncCircusFn (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:231:10)\nat _callCircusTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:316:40)\nat _runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:252:3)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:126:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat run (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:71:3)\nat runAndTransformResultsToJestFormat (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\nat jestAdapter (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\nat runTestInternal (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:367:16)\nat runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:444:34)\n\n[object Object]"
+        },
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > All runs scenarios",
+        "insights": {
+          "passRate": {
+            "current": 0.6538,
+            "baseline": 0.6667,
+            "change": -0.0129
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.3462,
+            "baseline": 0.3333,
+            "change": 0.0129
+          },
+          "averageTestDuration": {
+            "current": 1.63,
+            "baseline": 1.61,
+            "change": 0.019999999999999796
+          },
+          "p95TestDuration": {
+            "current": 4,
+            "baseline": 4,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 18,
+            "totalResults": 52,
+            "totalResultsFailed": 18,
+            "totalResultsPassed": 34,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 85,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        },
+        "ai": "The test failed because it's asserting that `includeFailedReportAllFooter` should be true when tests have failed across all runs, but the actual value is false. The test initially failed on the first attempt but passed on retry, which is why it's marked as flaky.\n\nWhat's concerning here is the historical pattern showing this test has failed 18 out of 52 times, giving it only a 65% pass rate. This isn't a one-off issue—it's consistently unreliable. The fact that it needed a retry to pass this time suggests there's an underlying race condition or timing issue rather than a genuine logic problem.\n\nSince this test involves \"previous results\" and multiple runs, the most likely culprit is that asynchronous operations aren't being properly awaited before the assertion runs. The test setup might be loading or processing previous run data, but the flag determination logic is executing before that data is fully available or processed. This would explain why retrying sometimes succeeds—the timing randomly works out on the second attempt.\n\nTo make this test stable, you should verify that any operations fetching or processing previous run results are fully completed before the footer flag logic executes. Add explicit waits or state validation to confirm previous results are loaded and parsed completely. Review the implementation of the flag determination logic to ensure it doesn't rely on undefined values or partially loaded data. Consider simplifying the test setup to remove unnecessary asynchronous dependencies, or if they're required, make them synchronous or properly promise-based. You might also want to examine whether there are shared state issues between test runs that could affect the outcome—check if test cleanup between attempts is thorough enough to prevent data bleeding from previous executions."
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) All runs scenarios should NOT set includeFlakyReportAllFooter when flaky tests exist across all runs",
+        "duration": 0,
+        "status": "failed",
+        "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: false\nReceived: true\n",
+        "trace": "at Object.<anonymous> (/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts:225:64)\nat Promise.then.completed (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:298:28)\nat new Promise (<anonymous>)\nat callAsyncCircusFn (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:231:10)\nat _callCircusTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:316:40)\nat _runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:252:3)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:126:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat run (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:71:3)\nat runAndTransformResultsToJestFormat (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\nat jestAdapter (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\nat runTestInternal (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:367:16)\nat runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:444:34)\n\n[object Object]",
+        "rawStatus": "failed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > All runs scenarios",
+        "insights": {
+          "passRate": {
+            "current": 0.6538,
+            "baseline": 0.6667,
+            "change": -0.0129
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.3462,
+            "baseline": 0.3333,
+            "change": 0.0129
+          },
+          "averageTestDuration": {
+            "current": 0.77,
+            "baseline": 0.78,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 18,
+            "totalResults": 52,
+            "totalResultsFailed": 18,
+            "totalResultsPassed": 34,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 40,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        },
+        "ai": "The test failed because the `includeFlakyReportAllFooter` flag is being set to `true` when it should remain `false` in a specific scenario. The test is checking that when you have previous suite results and flaky tests exist across all runs, this particular footer flag should NOT be enabled, but the code is currently enabling it anyway.\n\nLooking at the test location (line 225 in report-preparation.test.ts), the assertion is straightforward—it expects `false` but gets `true`. This suggests the `addFooterDisplayFlags` function has a logic gap. The function is probably enabling this footer flag without properly checking for the condition that should prevent it: the combination of having previous results and flaky tests spanning every run.\n\nThe historical metrics show this test has been consistently failing with a 65% pass rate, which tells you this isn't a flaky test itself but a genuine bug in the flag assignment logic that keeps happening.\n\nTo resolve this, examine the `addFooterDisplayFlags` function and locate where `includeFlakyReportAllFooter` gets set to `true`. You need to add a guard condition that checks for the \"all runs flaky with previous results\" scenario and prevents the flag from being enabled in that case. The fix likely involves checking if flaky tests are present across all runs AND if previous suite results exist, then keeping this flag disabled instead of allowing it to be set to true. The condition might need to explicitly return `false` for `includeFlakyReportAllFooter` when these specific circumstances are detected."
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) All runs scenarios should set includeFailedReportAllFooter when no tests failed across all runs",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > All runs scenarios",
+        "insights": {
+          "passRate": {
+            "current": 0.9231,
+            "baseline": 0.9216,
+            "change": 0.0015
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.0769,
+            "baseline": 0.0784,
+            "change": -0.0015
+          },
+          "averageTestDuration": {
+            "current": 0.38,
+            "baseline": 0.39,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 4,
+            "totalResults": 52,
+            "totalResultsFailed": 4,
+            "totalResultsPassed": 48,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 20,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) All runs scenarios should set includeFlakyReportAllFooter when no flaky tests across all runs",
+        "duration": 0,
+        "status": "failed",
+        "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n",
+        "trace": "at Object.<anonymous> (/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts:247:64)\nat Promise.then.completed (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:298:28)\nat new Promise (<anonymous>)\nat callAsyncCircusFn (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:231:10)\nat _callCircusTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:316:40)\nat _runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:252:3)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:126:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat run (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:71:3)\nat runAndTransformResultsToJestFormat (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\nat jestAdapter (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\nat runTestInternal (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:367:16)\nat runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:444:34)\n\n[object Object]",
+        "rawStatus": "failed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > All runs scenarios",
+        "insights": {
+          "passRate": {
+            "current": 0.7308,
+            "baseline": 0.7451,
+            "change": -0.0143
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.2692,
+            "baseline": 0.2549,
+            "change": 0.0143
+          },
+          "averageTestDuration": {
+            "current": 0.4,
+            "baseline": 0.41,
+            "change": -0.009999999999999953
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 14,
+            "totalResults": 52,
+            "totalResultsFailed": 14,
+            "totalResultsPassed": 38,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 21,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        },
+        "ai": "The test failed because the `includeFlakyReportAllFooter` flag is returning `false` when it should be returning `true`. Specifically, when there are no flaky tests across all runs in a suite with previous results, the code should be setting this flag to `true`, but it's not.\n\nLooking at the historical data, this test has a consistent failure pattern—it's failed in 14 out of 52 runs, which suggests this is a genuine logic issue rather than a random flake. The problem is likely in how the report preparation code determines whether flaky tests exist when previous results are involved.\n\nThe issue probably stems from one of these scenarios: either the condition checking for \"no flaky tests\" isn't correctly recognizing your test scenario when previous results are included, or there's a boolean logic issue in the implementation. Since this test specifically deals with previous results, the code might not be properly accounting for or aggregating previous test data when calculating the overall count of flaky tests.\n\nTo fix this, examine the implementation that sets the `includeFlakyReportAllFooter` flag and verify that the condition properly returns `true` when no flaky tests are found across all runs. Double-check that previous results are being accurately factored into the flaky test calculation, and look for any accidental boolean inversions in the logic. The fix will likely involve correcting the conditional statement or ensuring previous results are properly considered when determining whether flaky tests exist in the report."
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) Combined scenarios should handle tests failing in current AND across all runs",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > Combined scenarios",
+        "insights": {
+          "passRate": {
+            "current": 0.9231,
+            "baseline": 0.9216,
+            "change": 0.0015
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.0769,
+            "baseline": 0.0784,
+            "change": -0.0015
+          },
+          "averageTestDuration": {
+            "current": 0.42,
+            "baseline": 0.43,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 4,
+            "totalResults": 52,
+            "totalResultsFailed": 4,
+            "totalResultsPassed": 48,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 22,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Previous suite (with previous results) Combined scenarios should handle flaky tests in current AND across all runs",
+        "duration": 0,
+        "status": "failed",
+        "message": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: false\nReceived: true\n",
+        "trace": "at Object.<anonymous> (/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts:301:64)\nat Promise.then.completed (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:298:28)\nat new Promise (<anonymous>)\nat callAsyncCircusFn (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/utils.js:231:10)\nat _callCircusTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:316:40)\nat _runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:252:3)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:126:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat _runTestsForDescribeBlock (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:121:9)\nat run (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/run.js:71:3)\nat runAndTransformResultsToJestFormat (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)\nat jestAdapter (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)\nat runTestInternal (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:367:16)\nat runTest (/home/runner/work/private-github-test-reporter/private-github-test-reporter/node_modules/jest-runner/build/runTest.js:444:34)\n\n[object Object]",
+        "rawStatus": "failed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Previous suite (with previous results) > Combined scenarios",
+        "insights": {
+          "passRate": {
+            "current": 0.7308,
+            "baseline": 0.7451,
+            "change": -0.0143
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.2692,
+            "baseline": 0.2549,
+            "change": 0.0143
+          },
+          "averageTestDuration": {
+            "current": 0.46,
+            "baseline": 0.47,
+            "change": -0.009999999999999953
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 14,
+            "totalResults": 52,
+            "totalResultsFailed": 14,
+            "totalResultsPassed": 38,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 24,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        },
+        "ai": "The test failed because an assertion at line 301 in the report-preparation test file expected a boolean value to be `false`, but it was `true` instead.\n\nThis test is specifically checking the logic for handling flaky tests in combined scenarios where previous test results are being considered alongside current run data. The assertion is verifying that the footer display flag should remain `false` under these conditions, but your code is incorrectly setting it to `true`.\n\nWhat's particularly telling here is the historical data. This test has run 52 times across different test runs, and it's consistently failing at approximately a 27% failure rate—which is slightly worse than the baseline of 25%. This is not a flaky intermittent issue but a persistent logic bug. The test is reliably reproducible, which means there's a concrete bug in your implementation rather than a timing or environmental problem.\n\nThe most likely cause is that your footer display flag logic is incorrectly evaluating the conditions for combined scenarios with previous results. When processing flaky test detection across multiple runs and historical data, the logic is triggering the flag to `true` when it should remain `false`. This could happen if the flaky test detection is overly aggressive when merging current run results with previous historical data, or if there's an inverted condition somewhere in the logic.\n\nTo fix this, examine the implementation that determines when the footer display flag should be activated in scenarios that combine current results with previous results. Trace through specifically how flaky test detection behaves when merging data across runs, and look for any backwards comparison operators, inverted boolean checks, or edge cases where combining datasets might unintentionally trigger the flag. Since the failure is consistent, you should be able to reproduce it easily once you identify which condition is evaluating incorrectly."
+      },
+      {
+        "name": "addFooterDisplayFlags Show reports flags should always show reports when only one report enabled",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Show reports flags",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.85,
+            "baseline": 0.86,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 44,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Show reports flags should hide reports when multiple reports enabled and no failures",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Show reports flags",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.65,
+            "baseline": 0.65,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 34,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Show reports flags should show failed reports when failures exist",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Show reports flags",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.52,
+            "baseline": 0.53,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 27,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Show reports flags should show flaky reports when flaky tests exist",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Show reports flags",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.31,
+            "baseline": 0.31,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 16,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Show reports flags should show skipped reports when skipped tests exist",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Show reports flags",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.23,
+            "baseline": 0.22,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 12,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Show reports flags should show skipped reports when pending tests exist",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Show reports flags",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.26,
+            "baseline": 0.27,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 46,
+          "extra": {
+            "totalAttempts": 46,
+            "totalAttemptsFailed": 0,
+            "totalResults": 46,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 46,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 12,
+            "appearsInRuns": 46,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Measured Over Footer should set includeMeasuredOverFooter when previous reports exist",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Measured Over Footer",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.27,
+            "baseline": 0.27,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 14,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Measured Over Footer should NOT set includeMeasuredOverFooter when no previous reports exist",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Measured Over Footer",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.25,
+            "baseline": 0.25,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 13,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addFooterDisplayFlags Measured Over Footer should NOT set includeMeasuredOverFooter when previous reports array is empty",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > addFooterDisplayFlags > Measured Over Footer",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.31,
+            "baseline": 0.31,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 16,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "Inputs with maxPreviousRunsToFetch should handle maxPreviousRunsToFetch parameter correctly",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/report-preparation.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "report-preparation.test.ts > Inputs with maxPreviousRunsToFetch",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.23,
+            "baseline": 0.24,
+            "change": -0.009999999999999981
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 52,
+          "extra": {
+            "totalAttempts": 52,
+            "totalAttemptsFailed": 0,
+            "totalResults": 52,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 12,
+            "appearsInRuns": 52,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should not add baseline footer when report.baseline is not present",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.89,
+            "baseline": 0.92,
+            "change": -0.030000000000000027
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 24,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should not add baseline footer when hasPreviousResultsReports is false",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.41,
+            "baseline": 0.42,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 11,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should add baseline footer with commit link when baseline and hasPreviousResultsReports are present",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.74,
+            "baseline": 0.73,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 20,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should add baseline footer without commit link when commit is missing",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.52,
+            "baseline": 0.54,
+            "change": -0.020000000000000018
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 14,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should use first 7 characters of commit SHA for the link text",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.41,
+            "baseline": 0.42,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 11,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should construct correct GitHub commit URL",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.22,
+            "baseline": 0.19,
+            "change": 0.03
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 6,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should format footer messages correctly in markdown",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.81,
+            "baseline": 0.85,
+            "change": -0.039999999999999925
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 22,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should include build number with link when buildNumber and buildUrl are present",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.81,
+            "baseline": 0.85,
+            "change": -0.039999999999999925
+          },
+          "p95TestDuration": {
+            "current": 3,
+            "baseline": 3,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 22,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should include build number without link when buildNumber is present but buildUrl is missing",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 1.15,
+            "baseline": 1.15,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 7,
+            "baseline": 7,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 31,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should not include build info when only buildName is present (buildNumber required)",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.41,
+            "baseline": 0.42,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 11,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "addReportFooters should use buildNumber when both buildNumber and buildName are present",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/github/core.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "core.test.ts > addReportFooters",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.78,
+            "baseline": 0.77,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 21,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"passed\"",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 0.9811,
+            "baseline": 0.9808,
+            "change": 0.0003
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.62,
+            "baseline": 0.63,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 52,
+            "totalResultsSkipped": 1,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 33,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"failed\"",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 0.6981,
+            "baseline": 0.6923,
+            "change": 0.0058
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.0189,
+            "baseline": 0.0192,
+            "change": -0.0003
+          },
+          "averageTestDuration": {
+            "current": 0.49,
+            "baseline": 0.48,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 1,
+            "totalResults": 53,
+            "totalResultsFailed": 1,
+            "totalResultsPassed": 37,
+            "totalResultsSkipped": 15,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 26,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"skipped\"",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 0.7925,
+            "baseline": 0.7885,
+            "change": 0.004
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.36,
+            "baseline": 0.37,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 42,
+            "totalResultsSkipped": 11,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 19,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"pending\"",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 0.9245,
+            "baseline": 0.9231,
+            "change": 0.0014
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.0755,
+            "baseline": 0.0769,
+            "change": -0.0014
+          },
+          "averageTestDuration": {
+            "current": 0.42,
+            "baseline": 0.42,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 2,
+            "baseline": 2,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 4,
+            "totalResults": 53,
+            "totalResultsFailed": 4,
+            "totalResultsPassed": 49,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 22,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"other\"",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 0.6981,
+            "baseline": 0.6923,
+            "change": 0.0058
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.3019,
+            "baseline": 0.3077,
+            "change": -0.0058
+          },
+          "averageTestDuration": {
+            "current": 0.62,
+            "baseline": 0.63,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 3,
+            "baseline": 3,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 16,
+            "totalResults": 53,
+            "totalResultsFailed": 16,
+            "totalResultsPassed": 37,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 33,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"build\"",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 0.9636,
+            "baseline": 0.963,
+            "change": 0.0006
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.0364,
+            "baseline": 0.037,
+            "change": -0.0006
+          },
+          "averageTestDuration": {
+            "current": 0.25,
+            "baseline": 0.24,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 55,
+            "totalAttemptsFailed": 2,
+            "totalResults": 55,
+            "totalResultsFailed": 2,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 14,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"duration\"",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 0.9623,
+            "baseline": 0.9615,
+            "change": 0.0008
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0.0377,
+            "baseline": 0.0385,
+            "change": -0.0008
+          },
+          "averageTestDuration": {
+            "current": 0.19,
+            "baseline": 0.19,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 2,
+            "totalResults": 53,
+            "totalResultsFailed": 2,
+            "totalResultsPassed": 51,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 10,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"flaky\"",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.42,
+            "baseline": 0.42,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 22,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"tests\"",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.15,
+            "baseline": 0.15,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 8,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "getEmoji returns the correct emoji for \"result\"",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > getEmoji",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.19,
+            "baseline": 0.17,
+            "change": 0.01999999999999999
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 10,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "normalizeSuite handles array format (new CTRF format) with default separator",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > normalizeSuite",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.19,
+            "baseline": 0.19,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 5,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "normalizeSuite handles array format with custom separator",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > normalizeSuite",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.26,
+            "baseline": 0.27,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 7,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "normalizeSuite handles string format (legacy CTRF format)",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > normalizeSuite",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.33,
+            "baseline": 0.35,
+            "change": -0.019999999999999962
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 9,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "normalizeSuite returns undefined when suite is undefined",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > normalizeSuite",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.19,
+            "baseline": 0.15,
+            "change": 0.04000000000000001
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 5,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "normalizeSuite handles empty array",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > normalizeSuite",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.37,
+            "baseline": 0.38,
+            "change": -0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 10,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "normalizeSuite handles single element array",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > normalizeSuite",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.19,
+            "baseline": 0.19,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 5,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "normalizeSuite handles empty string",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > normalizeSuite",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.11,
+            "baseline": 0.12,
+            "change": -0.009999999999999995
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 27,
+          "extra": {
+            "totalAttempts": 27,
+            "totalAttemptsFailed": 0,
+            "totalResults": 27,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 27,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 3,
+            "appearsInRuns": 27,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "stripAnsi removes ANSI escape codes from a string",
+        "duration": 1,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > stripAnsi",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.28,
+            "baseline": 0.27,
+            "change": 0.010000000000000009
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 15,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "stripAnsi returns the same string if no ANSI codes are present",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > stripAnsi",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.25,
+            "baseline": 0.25,
+            "change": 0
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 13,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "stripAnsi handles empty strings correctly",
+        "duration": 0,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > stripAnsi",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 0.28,
+            "baseline": 0.29,
+            "change": -0.009999999999999953
+          },
+          "p95TestDuration": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 15,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
+      },
+      {
+        "name": "stripAnsi throws a TypeError if the input is not a string",
+        "duration": 13,
+        "status": "passed",
+        "rawStatus": "passed",
+        "type": "unit",
+        "filePath": "/home/runner/work/private-github-test-reporter/private-github-test-reporter/__tests__/ctrf/helpers.test.ts",
+        "retries": 0,
+        "flaky": false,
+        "suite": "helpers.test.ts > stripAnsi",
+        "insights": {
+          "passRate": {
+            "current": 1,
+            "baseline": 1,
+            "change": 0
+          },
+          "flakyRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "failRate": {
+            "current": 0,
+            "baseline": 0,
+            "change": 0
+          },
+          "averageTestDuration": {
+            "current": 14.28,
+            "baseline": 14.31,
+            "change": -0.030000000000001137
+          },
+          "p95TestDuration": {
+            "current": 26,
+            "baseline": 26,
+            "change": 0
+          },
+          "executedInRuns": 53,
+          "extra": {
+            "totalAttempts": 53,
+            "totalAttemptsFailed": 0,
+            "totalResults": 53,
+            "totalResultsFailed": 0,
+            "totalResultsPassed": 53,
+            "totalResultsSkipped": 0,
+            "totalResultsFlaky": 0,
+            "totalAttemptsFlaky": 0,
+            "totalResultsDuration": 757,
+            "appearsInRuns": 53,
+            "reportsAnalyzed": 0
+          }
+        }
       }
     ],
+    "environment": {
+      "buildName": "build-and-test",
+      "buildNumber": 79,
+      "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19074069454#summary",
+      "buildId": "19074069454",
+      "branchName": "private-next",
+      "commit": "30c4eede68c3a269acd0f92ca82ac872c60a105c",
+      "repositoryName": "private-github-test-reporter",
+      "repositoryUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter"
+    },
     "extra": {
-      "ai": "The test suite reveals two distinct categories of failure. The first issue is a data mismatch in the profile display test, where the component's actual output doesn't align with what the test expects. This suggests either the profile data structure has evolved without the test being updated, or the test's mock data isn't accurately reflecting what the component produces in reality.\n\nThe second issue affects both network failure tests and points to a timing problem. The tests are timing out before network failures can be properly simulated and validated. The root cause appears to be inadequate mocking of network requests—if actual network calls are occurring instead of being intercepted and simulated, the tests will either hang or timeout. Additionally, there may be unresolved async operations that aren't being properly awaited, causing the test runner to move past assertions before the code under test has a chance to execute.\n\nTo fix these issues, verify that your test mocks for network calls are properly configured to intercept requests instantly, ensure all async operations are being awaited, and confirm that your profile data fixtures match the actual structure your component expects. The pattern here suggests a gap between what the tests assume your code does and what it actually does.\n\nI love you! xxx"
+      "ai": "The analysis reveals a single test with a significant reliability problem. The test has a 65% pass rate across 52 runs, indicating a systematic rather than sporadic issue. The pattern of initial failure followed by success on retry strongly suggests an asynchronous timing problem rather than a logic error.\n\nThe root cause likely stems from race conditions in how previous test run results are being processed and made available to the flag determination logic. The test appears to be executing assertions before all prerequisite data from previous runs has been fully loaded or processed, causing the footer flag to be computed against incomplete or stale information. This explains the inconsistent behavior—retries succeed when timing happens to work in the test's favor.\n\nThe instability is traceable to three interconnected issues: asynchronous operations that lack proper synchronization mechanisms, insufficient validation that prerequisite data is completely available before proceeding, and potentially inadequate test isolation between consecutive attempts. The 35% failure rate indicates this isn't a rare edge case but rather a fundamental weakness in how the test handles data dependencies.\n\nTo stabilize this test, focus on ensuring all data fetching and processing for previous run results completes explicitly before any assertions execute. This requires either adding explicit synchronization points, validating state before proceeding, or restructuring the test setup to eliminate timing-dependent operations. Additionally, verify that test cleanup between retries is complete and that no state from failed attempts bleeds into subsequent retries.",
+      "aiInsights": "# Test Suite Health Analysis\n\n## Overall Status: ✅ **HEALTHY with Minor Concerns**\n\nThe test suite maintains strong stability with a **96.54% pass rate** across 77 tests. However, there are subtle warning signals that warrant attention.\n\n---\n\n## Key Findings\n\n### ✅ Positive Indicators\n- **No flaky tests** (0% flaky rate): Excellent test reliability with consistent behavior across 53 runs\n- **Minimal pass rate degradation**: -0.04% change is negligible and within normal variance\n- **Test duration improving**: Average test duration decreased by 0.7% (1.39s → 1.38s), suggesting marginal optimization\n- **Stable test count**: No tests added/removed; suite composition is consistent\n\n### ⚠️ Areas of Concern\n\n**1. Failing Tests Trending Upward**\n- Fail rate increased from 0.0265 to 0.0271 (+2.3% relative increase)\n- 4 tests consistently failing across the suite\n- While modest, this represents a regression from baseline\n\n**2. Run Duration Growing**\n- Average run duration increased by **1.12 seconds** (+1.77%, from 63.36s → 64.48s)\n- Cumulative impact across development cycles is significant\n- P95 run duration remains stable at ~12.2 minutes (outlier threshold unchanged)\n\n**3. Problematic Failing Tests Identified**\nTwo tests show concerning failure patterns:\n- **\"addFooterDisplayFlags...includeFailedReportAllFooter\"**: 18 failures out of 52 runs (34.6% fail rate) ❌\n- **\"getEmoji returns the correct emoji for 'other'\"**: 16 failures out of 53 runs (30.2% fail rate) ❌\n\nThese are the likely sources of the 4 failing tests in the suite.\n\n---\n\n## Actionable Recommendations\n\n### Priority 1 (Immediate)\n1. **Investigate flaky test failures** in `addFooterDisplayFlags` and `getEmoji` tests\n   - Review recent code changes affecting these components\n   - Check for environment/timing-dependent issues\n   - Add defensive assertions or increase determinism\n\n2. **Root cause analysis** on why 97 out of 3,585 test attempts failed\n   - Identify if failures cluster around specific runs or conditions\n   - Check for external dependencies or race conditions\n\n### Priority 2 (Short-term)\n3. **Address run duration increase**\n   - Profile slowest tests (42s average for \"handleViewsAndComments\")\n   - Identify opportunities for parallelization or test optimization\n   - Monitor for continued degradation\n\n### Priority 3 (Ongoing)\n4. **Maintain flaky test vigilance** despite current 0% rate\n   - The two failing tests may become flaky; monitor closely\n   - Implement regression testing for fixes\n\n---\n\n## Summary\nThe suite is operationally healthy but showing early warning signs of quality erosion. The 4 consistent failures are likely concentrated in 2 specific tests requiring investigation. Act on Priority 1 recommendations within the next sprint to prevent fail rate escalation."
+    }
+  },
+  "extra": {
+    "previousResults": [
+      {
+        "start": 1762270156453,
+        "stop": 1762270168496,
+        "buildId": "19073857902",
+        "buildName": "build-and-test",
+        "buildNumber": 78,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19073857902#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 73,
+        "failed": 4,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 12043
+      },
+      {
+        "start": 1762262739344,
+        "stop": 1762262749966,
+        "buildId": "19070144929",
+        "buildName": "build-and-test",
+        "buildNumber": 77,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19070144929#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 73,
+        "failed": 4,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 10622
+      },
+      {
+        "start": 1762261193199,
+        "stop": 1762261203256,
+        "buildId": "19069441527",
+        "buildName": "build-and-test",
+        "buildNumber": 76,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19069441527#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 73,
+        "failed": 4,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 10057
+      },
+      {
+        "start": 1762261104746,
+        "stop": 1762261115372,
+        "buildId": "19069403459",
+        "buildName": "build-and-test",
+        "buildNumber": 75,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19069403459#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 73,
+        "failed": 4,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 10626
+      },
+      {
+        "start": 1762260704532,
+        "stop": 1762260717924,
+        "buildId": "19069229885",
+        "buildName": "build-and-test",
+        "buildNumber": 74,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19069229885#summary",
+        "result": "passed",
+        "tests": 77,
+        "passed": 77,
+        "failed": 0,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 13392
+      },
+      {
+        "start": 1762259014156,
+        "stop": 1762259025457,
+        "buildId": "19068503226",
+        "buildName": "build-and-test",
+        "buildNumber": 73,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19068503226#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 72,
+        "failed": 5,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 11301
+      },
+      {
+        "start": 1762258563655,
+        "stop": 1762258575552,
+        "buildId": "19068310788",
+        "buildName": "build-and-test",
+        "buildNumber": 72,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19068310788#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 72,
+        "failed": 5,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 11897
+      },
+      {
+        "start": 1762258106062,
+        "stop": 1762258116885,
+        "buildId": "19068112468",
+        "buildName": "build-and-test",
+        "buildNumber": 71,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19068112468#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 72,
+        "failed": 5,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 10823
+      },
+      {
+        "start": 1762257377700,
+        "stop": 1762257389029,
+        "buildId": "19067814380",
+        "buildName": "build-and-test",
+        "buildNumber": 70,
+        "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19067814380#summary",
+        "result": "failed",
+        "tests": 77,
+        "passed": 72,
+        "failed": 5,
+        "skipped": 0,
+        "flaky": 0,
+        "other": 0,
+        "duration": 11329
+      }
+    ],
+    "reportConditionals": {
+      "includeFailedReportCurrentFooter": false,
+      "includeFlakyReportCurrentFooter": false,
+      "includeFailedReportAllFooter": false,
+      "includeFlakyReportAllFooter": false,
+      "includeMeasuredOverFooter": true,
+      "includeSkippedReportCurrentFooter": false,
+      "includeSkippedReportAllFooter": false,
+      "showSkippedReports": false,
+      "showFailedReports": true,
+      "showFlakyReports": true
+    }
+  },
+  "baseline": {
+    "reportId": "",
+    "timestamp": "",
+    "source": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19073857902#summary",
+    "commit": "2626e0e4a69c989db3a2e25027e51014d8905500",
+    "buildName": "build-and-test",
+    "buildNumber": 78,
+    "buildUrl": "https://github.com/Ma11hewThomas/private-github-test-reporter/actions/runs/19073857902#summary",
+    "extra": {
+      "buildId": "19073857902"
+    }
+  },
+  "insights": {
+    "passRate": {
+      "current": 0.9654,
+      "baseline": 0.9658,
+      "change": -0.0004
+    },
+    "flakyRate": {
+      "current": 0,
+      "baseline": 0,
+      "change": 0
+    },
+    "failRate": {
+      "current": 0.0271,
+      "baseline": 0.0265,
+      "change": 0.0006
+    },
+    "averageTestDuration": {
+      "current": 1.38,
+      "baseline": 1.39,
+      "change": -0.010000000000000009
+    },
+    "averageRunDuration": {
+      "current": 64.48,
+      "baseline": 63.36,
+      "change": 1.1200000000000045
+    },
+    "p95RunDuration": {
+      "current": 12251,
+      "baseline": 12251,
+      "change": 0
+    },
+    "runsAnalyzed": 53,
+    "extra": {
+      "totalAttempts": 3585,
+      "totalAttemptsFailed": 97,
+      "totalResults": 3585,
+      "totalResultsFailed": 97,
+      "totalResultsPassed": 3461,
+      "totalResultsSkipped": 27,
+      "totalResultsFlaky": 0,
+      "totalAttemptsFlaky": 0,
+      "totalResultsDuration": 4965,
+      "reportsAnalyzed": 77,
+      "testsAdded": [],
+      "testsRemoved": [],
+      "summary": {
+        "passed": {
+          "current": 73,
+          "baseline": 73,
+          "change": 0
+        },
+        "failed": {
+          "current": 4,
+          "baseline": 4,
+          "change": 0
+        },
+        "skipped": {
+          "current": 0,
+          "baseline": 0,
+          "change": 0
+        },
+        "pending": {
+          "current": 0,
+          "baseline": 0,
+          "change": 0
+        },
+        "other": {
+          "current": 0,
+          "baseline": 0,
+          "change": 0
+        },
+        "tests": {
+          "current": 77,
+          "baseline": 77,
+          "change": 0
+        },
+        "suites": {
+          "current": 0,
+          "baseline": 0,
+          "change": 0
+        },
+        "duration": {
+          "current": 10490,
+          "baseline": 12043,
+          "change": -1553
+        }
+      },
+      "slowestTests": [
+        {
+          "name": "handleViewsAndComments should create a check run with views and comments",
+          "totalResults": 53,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 53,
+          "averageTestDuration": 41.74,
+          "averageTestDurationChange": 0.010000000000005116,
+          "p95TestDuration": 56,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "stripAnsi throws a TypeError if the input is not a string",
+          "totalResults": 53,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 53,
+          "averageTestDuration": 14.28,
+          "averageTestDurationChange": -0.030000000000001137,
+          "p95TestDuration": 26,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "addReportFooters should include build number without link when buildNumber is present but buildUrl is missing",
+          "totalResults": 27,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 27,
+          "averageTestDuration": 1.15,
+          "averageTestDurationChange": 0,
+          "p95TestDuration": 7,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "createStatusCheck should create a successful check run when no tests failed",
+          "totalResults": 53,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 53,
+          "averageTestDuration": 3.15,
+          "averageTestDurationChange": 0,
+          "p95TestDuration": 4,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "addFooterDisplayFlags Previous suite (with previous results) All runs scenarios should NOT set includeFailedReportAllFooter when tests failed across all runs",
+          "totalResults": 52,
+          "totalResultsFailed": 18,
+          "totalResultsPassed": 34,
+          "averageTestDuration": 1.63,
+          "averageTestDurationChange": 0.019999999999999796,
+          "p95TestDuration": 4,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "handleComment Existing PR - All flags disabled should create new comment when comment found and no flags enabled",
+          "totalResults": 53,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 53,
+          "averageTestDuration": 1.04,
+          "averageTestDurationChange": 0,
+          "p95TestDuration": 3,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "handleComment Existing PR - updateComment enabled should create new comment when updateComment enabled and alwaysLatest enabled and comment is not latest",
+          "totalResults": 53,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 53,
+          "averageTestDuration": 1,
+          "averageTestDurationChange": 0,
+          "p95TestDuration": 3,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "addReportFooters should include build number with link when buildNumber and buildUrl are present",
+          "totalResults": 27,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 27,
+          "averageTestDuration": 0.81,
+          "averageTestDurationChange": -0.039999999999999925,
+          "p95TestDuration": 3,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "getEmoji returns the correct emoji for \"other\"",
+          "totalResults": 53,
+          "totalResultsFailed": 16,
+          "totalResultsPassed": 37,
+          "averageTestDuration": 0.62,
+          "averageTestDurationChange": -0.010000000000000009,
+          "p95TestDuration": 3,
+          "p95TestDurationChange": 0
+        },
+        {
+          "name": "createStatusCheck should truncate summary if it exceeds 65000 characters",
+          "totalResults": 53,
+          "totalResultsFailed": 0,
+          "totalResultsPassed": 53,
+          "averageTestDuration": 1.43,
+          "averageTestDurationChange": -0.010000000000000009,
+          "p95TestDuration": 2,
+          "p95TestDurationChange": 0
+        }
+      ],
+      "averageTestsPerRun": 68
     }
   }
 }

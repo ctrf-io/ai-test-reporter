@@ -1,4 +1,4 @@
-import { type CtrfReport } from '../types/ctrf'
+import { type Report } from '../types/ctrf'
 import { type Arguments } from './index'
 import { openAI } from './models/openai'
 import { claudeAI } from './models/claude'
@@ -10,26 +10,39 @@ import { perplexity } from './models/perplexity'
 import { openRouter } from './models/openrouter'
 import { bedrock } from './models/bedrock'
 import { customService } from './models/custom'
+import {
+  filterTestsByAssessment,
+  getAssessmentConfig,
+  type AssessmentType,
+} from './assess'
 // import { CONSOLIDATED_SUMMARY_SYSTEM_PROMPT } from "./constants";
 
 export async function generateConsolidatedSummary(
-  report: CtrfReport,
+  report: Report,
   model: string,
   args: Arguments,
   customUrl?: string
 ): Promise<void> {
-  const failedTests = report.results.tests.filter(
-    (test) => test.status === 'failed'
+  const assessmentType: AssessmentType = args.assess ?? 'failed'
+  const assessmentConfig = getAssessmentConfig(assessmentType)
+  const testsToAnalyze = filterTestsByAssessment(
+    report.results.tests,
+    assessmentType
   )
   const aiSummaries: string[] = []
 
-  for (const test of failedTests) {
+  for (const test of testsToAnalyze) {
     if (test.ai != null && test.ai.trim() !== '') {
       aiSummaries.push(`Test Name: ${test.name}\nAI Summary: ${test.ai}\n`)
     }
   }
 
-  let systemPrompt = `You are tasked with summarizing the results of a test run that contains test failures. Your goal is to provide a concise, high-level overview of what went wrong in the test run. Focus on identifying patterns or root causes that might explain why these tests failed. Keep the summary brief and informative, without repeating the test details or providing step-by-step instructions. Avoid unnecessary verbosity and focus on delivering actionable insights.   
+  let systemPrompt = `You are tasked with summarizing test analysis results. Your goal is to provide a concise, high-level overview based on the individual test summaries provided.
+
+Assessment Context: ${assessmentConfig.description}
+${assessmentConfig.systemPromptSuffix}
+
+Focus on identifying patterns or root causes. Keep the summary brief and informative, without repeating the test details or providing step-by-step instructions. Avoid unnecessary verbosity and focus on delivering actionable insights.   
                 Avoid:
                  - Including any code in your response.
                  - Adding generic conclusions or advice such as "By following these steps..."
@@ -40,7 +53,7 @@ export async function generateConsolidatedSummary(
   ) {
     systemPrompt += `\n\n${args.additionalSystemPromptContext}`
   }
-  let consolidatedPrompt = `The following tests failed in the suite:\n\n${aiSummaries.join('\n')}\n\nA total of ${failedTests.length} tests failed in this test suite. Please provide a high-level summary of what went wrong across the suite and suggest what might be the root causes or patterns.`
+  let consolidatedPrompt = `The following tests from the ${assessmentConfig.label} assessment:\n\n${aiSummaries.join('\n')}\n\nA total of ${testsToAnalyze.length} tests were analyzed (${assessmentConfig.label}). Please provide a high-level summary of the findings across the suite and suggest what might be the root causes or patterns.`
   if (
     args.additionalPromptContext != null &&
     args.additionalPromptContext !== ''

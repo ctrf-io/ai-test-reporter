@@ -1,4 +1,4 @@
-import { type CtrfReport } from '../types/ctrf'
+import { type Report } from '../types/ctrf'
 import { type Arguments } from './index'
 import { openAI } from './models/openai'
 import { claudeAI } from './models/claude'
@@ -10,6 +10,11 @@ import { perplexity } from './models/perplexity'
 import { openRouter } from './models/openrouter'
 import { bedrock } from './models/bedrock'
 import { customService } from './models/custom'
+import {
+  filterTestsByAssessment,
+  getAssessmentConfig,
+  type AssessmentType,
+} from './assess'
 
 export interface JsonSummaryResponse {
   summary: string
@@ -20,24 +25,35 @@ export interface JsonSummaryResponse {
 }
 
 export async function generateJsonSummary(
-  report: CtrfReport,
+  report: Report,
   model: string,
   args: Arguments,
   customUrl?: string
 ): Promise<JsonSummaryResponse | null> {
-  const failedTests = report.results.tests.filter(
-    (test) => test.status === 'failed'
+  const assessmentType: AssessmentType = args.assess ?? 'failed'
+  const assessmentConfig = getAssessmentConfig(assessmentType)
+  const testsToAnalyze = filterTestsByAssessment(
+    report.results.tests,
+    assessmentType
   )
 
   const testDetails: string[] = []
   let testCount = 0
 
-  for (const test of failedTests) {
+  for (const test of testsToAnalyze) {
     if (args.maxMessages != null && testCount >= args.maxMessages) {
       break
     }
 
     let detail = `Test Name: ${test.name}\n`
+    detail += `Status: ${test.status}\n`
+
+    if (test.flaky === true) {
+      detail += `Flaky: Yes\n`
+      if (test.retries != null) {
+        detail += `Retries: ${test.retries}\n`
+      }
+    }
 
     if (test.message != null && test.message.trim() !== '') {
       detail += `Message: ${test.message}\n`
@@ -45,6 +61,11 @@ export async function generateJsonSummary(
 
     if (test.trace != null && test.trace.trim() !== '') {
       detail += `Trace: ${test.trace}\n`
+    }
+
+    // Include insights data if available
+    if (test.insights != null) {
+      detail += `Insights:\n${JSON.stringify(test.insights, null, 2)}\n`
     }
 
     if (test.ai != null && test.ai.trim() !== '') {
@@ -55,27 +76,38 @@ export async function generateJsonSummary(
     testCount++
   }
 
-  let systemPrompt = `You are a test analysis expert. Your task is to analyze test failures and provide structured output in JSON format.
+  let systemPrompt = `You are a test analysis expert. Your task is to analyze tests and provide structured output in JSON format.
+
+Assessment Context: ${assessmentConfig.description}
+${assessmentConfig.systemPromptSuffix}
+
 Avoid:
  - Including any code in your response.
  - Adding generic conclusions or advice such as "By following these steps..."
- - headings, bullet points, or special formatting.
 
 You must respond ONLY with valid JSON in the following structure:
 {
-  "summary": "High-level overview of what went wrong",
-  "code_issues": "Detailed description of code-related issues that occurred",
-  "timeout_issues": "Detailed description of timeout and performance issues",
-  "application_issues": "Detailed description of application-level issues",
-  "recommendations": "Detailed recommendations for fixing the issues"
+  "summary": "High-level overview of the assessment",
+  "code_issues": "Concise description of code-related issues that occurred",
+  "timeout_issues": "Concise description of timeout and performance issues",
+  "application_issues": "Concise description of application-level issues",
+  "recommendations": "Concise recommendations for addressing the findings"
 }
 
 Guidelines:
-- "summary": Provide a concise overview of the test run failures
-- "code_issues": Describe specific code-related problems (bugs, logic errors, assertion failures, etc.) in a paragraph. If there are no code-related issues, use an empty string.
-- "timeout_issues": Describe any timeout, performance, or timing-related issues in a paragraph. If there are no timeout-related issues, use an empty string.
-- "application_issues": Describe application-level problems (configuration, environment, dependencies, etc.) in a paragraph. If there are no application-related issues, use an empty string.
-- "recommendations": Provide actionable recommendations to fix the issues in a paragraph. If there are no recommendations, use an empty string.
+- "summary": Provide a concise overview of the assessment findings
+- "code_issues": Describe specific code-related problems (bugs, logic errors, assertion failures, etc.). If there are no code-related issues, use an empty string.
+- "timeout_issues": Describe any timeout, performance, or timing-related issues. If there are no timeout-related issues, use an empty string.
+- "application_issues": Describe application-level problems (configuration, environment, dependencies, flakiness, etc.). If there are no application-related issues, use an empty string.
+- "recommendations": Provide actionable recommendations to address the findings. If there are no recommendations, use an empty string.
+
+- Use bullet points for each issue or recommendation.
+- Assess whether multiple points refer to the same method, function, or logical issue.
+- If two or more points are related to the same method, function, or root cause, merge them into a single, cohesive bullet point that combines the relevant details.
+- Avoid repetition or near-duplicate points — summarize them together under one clear, concise item.
+- Ensure each bullet point represents a distinct, meaningful issue or recommendation.
+- When referencing a method or function name, format it in **bold Markdown**
+- Bullet points should be short and to the point.
 
 Important:
 - Each field should be a string
@@ -91,15 +123,15 @@ Important:
     systemPrompt += `\n\nAdditional Context:\n${args.additionalSystemPromptContext}`
   }
 
-  let analysisPrompt = `Analyze the following test failures and provide a structured JSON response.
+  let analysisPrompt = `Analyze the following tests and provide a structured JSON response.
 
+Assessment Type: ${assessmentConfig.label}
 Test Environment: ${report.results.environment != null ? JSON.stringify(report.results.environment) : 'Not specified'}
 Test Tool: ${report.results.tool.name}
-Total Tests Run: ${report.results.tests.length}
-Failed Tests: ${failedTests.length}
-Passed Tests: ${report.results.summary.passed}
-${testCount < failedTests.length ? `\nNote: Showing ${testCount} of ${failedTests.length} failed tests to stay within token limits.\n` : ''}
-Failed Test Details:
+Total Tests in Suite: ${report.results.tests.length}
+Tests Being Assessed: ${testsToAnalyze.length}
+${testCount < testsToAnalyze.length ? `\nNote: Showing ${testCount} of ${testsToAnalyze.length} tests to stay within token limits.\n` : ''}
+Test Details:
 ${testDetails.join('\n')}
 
 Provide your analysis in the specified JSON format.`
