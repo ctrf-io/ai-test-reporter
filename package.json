@@ -46,7 +46,7 @@
   "homepage": "https://ctrf.io",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.12.7",
+    "@types/node": "^25.9.1",
     "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
