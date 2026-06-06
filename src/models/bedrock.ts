@@ -23,9 +23,8 @@ export async function bedrock(
 
   try {
     // Import AWS SDK dynamically
-    const { BedrockRuntimeClient, InvokeModelCommand } = await import(
-      '@aws-sdk/client-bedrock-runtime'
-    )
+    const { BedrockRuntimeClient, InvokeModelCommand } =
+      await import('@aws-sdk/client-bedrock-runtime')
 
     const client = new BedrockRuntimeClient({
       region,
