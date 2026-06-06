@@ -52,7 +52,7 @@
     "@types/node": "25.9.2",
     "@types/yargs": "17.0.35",
     "@typescript-eslint/eslint-plugin": "6.15.0",
-    "@typescript-eslint/parser": "6.15.0",
+    "@typescript-eslint/parser": "8.60.1",
     "eslint": "8.54.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-config-standard-with-typescript": "43.0.1",
