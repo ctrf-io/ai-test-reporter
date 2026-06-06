@@ -1,6 +1,6 @@
 {
   "name": "ai-ctrf",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "Generate AI summaries of test results using a wide range of AI models like OpenAI, Anthropic, Gemini, Mistral, Grok, DeepSeek, Azure, Perplexity, OpenRouter, and custom OpenAI-compatible APIs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,6 +15,9 @@
   },
   "bin": {
     "ai-ctrf": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20.19.0"
   },
   "files": [
     "dist/",
@@ -34,7 +37,7 @@
     "perplexity",
     "openrouter"
   ],
-  "author": "Matthew Thomas",
+  "author": "Matthew Poulton-White",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ctrf-io/ai-test-reporter.git"
@@ -46,27 +49,27 @@
   "homepage": "https://ctrf.io",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "@types/yargs": "^17.0.32",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
-    "eslint": "^8.54.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-standard-with-typescript": "^43.0.1",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-n": "^16.3.1",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "prettier": "^3.1.0",
-    "typescript": "^5.9.2"
+    "@types/node": "25.9.2",
+    "@types/yargs": "17.0.35",
+    "@typescript-eslint/eslint-plugin": "6.15.0",
+    "@typescript-eslint/parser": "6.15.0",
+    "eslint": "8.54.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-config-standard-with-typescript": "43.0.1",
+    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-n": "16.3.1",
+    "eslint-plugin-prettier": "5.0.1",
+    "eslint-plugin-promise": "6.1.1",
+    "prettier": "3.8.3",
+    "typescript": "6.0.3"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.27.2",
-    "@aws-sdk/client-bedrock-runtime": "^3.864.0",
-    "@google/generative-ai": "^0.24.1",
-    "ctrf": "^0.2.0",
-    "openai": "^4.57.0",
-    "yargs": "^17.7.2"
+    "@anthropic-ai/sdk": "0.27.3",
+    "@aws-sdk/client-bedrock-runtime": "3.1063.0",
+    "@google/generative-ai": "0.24.1",
+    "ctrf": "0.2.1",
+    "openai": "6.42.0",
+    "yargs": "18.0.0"
   },
   "exports": {
     ".": {

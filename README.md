@@ -2,14 +2,20 @@
 
 AI Test Reporter is a powerful tool that generates intelligent summaries of test results using a wide range of AI models. With access to over 300 models through various providers (OpenAI, Anthropic Claude, Google Gemini, Mistral, Perplexity, OpenRouter, and more), it analyzes failing tests and provides actionable insights about what went wrong and how to fix it.
 
-## Support Us
+## CTRF Open Standard
 
-**AI Test Reporter is community-built and open source.**
+CTRF is a community-driven open standard for test reporting.
 
-You can support the project by:
+By standardizing test results, reports can be validated, merged, compared, and analyzed consistently across languages and frameworks.
 
-- Giving this repository a ⭐
-- [Following the @ctrf organization on GitHub](https://github.com/ctrf-io)
+- **CTRF Specification**: https://github.com/ctrf-io/ctrf  
+  The official specification defining the format and semantics
+- **Discussions**: https://github.com/orgs/ctrf-io/discussions  
+  Community forum for questions, ideas, and support
+
+> [!NOTE]  
+> ⭐ Starring the **CTRF specification repository** (https://github.com/ctrf-io/ctrf)
+> helps support the standard.
 
 ## Why Use AI Test Reporter?
 
@@ -30,12 +36,6 @@ You can support the project by:
   - Export structured JSON for integration with monitoring and analytics tools
 
 ## Models
-
-> [!TIP]
-> The following integrations are available with free tiers so are great to try out AI test reporter:
->
-> - **Google Gemini**: Offers a free tier with lower rate limits. [Pricing details](https://ai.google.dev/pricing#2_0flash)
-> - **Mistral AI**: Provides a free API tier to explore the service. [Tier details](https://docs.mistral.ai/deployment/laplateforme/tier/#usage-tiers)
 
 You can use any of the models supported by the following providers:
 
@@ -60,12 +60,57 @@ Generate a CTRF report using your testing framework. [CTRF reporters](https://gi
 
 Use [junit-to-ctrf](https://github.com/ctrf-io/junit-to-ctrf) to convert a JUnit report to CTRF
 
+## Installation
+
+### Global installation
+
+Install `ai-ctrf` globally:
+
+```sh
+pnpm add -g ai-ctrf
+```
+
+Or with npm:
+
+```sh
+npm install -g ai-ctrf
+```
+
+Then run:
+
+```sh
+ai-ctrf results ./ctrf-report.json --project CCS --issueTypeId 10000
+```
+
+### Ephemeral execution
+
+Use your package manager's executable runner:
+
+```sh
+pnpm dlx ai-ctrf@0.0.17 results ./ctrf-report.json --project CCS --issueTypeId 10000
+```
+
+Or with npm:
+
+```sh
+npx ai-ctrf@0.0.17 results ./ctrf-report.json --project CCS --issueTypeId 10000
+```
+
+> [!NOTE]
+> For ephemeral execution, it is recommended to pin the package version (for example, `ai-ctrf@0.0.17`).
+
+> [!TIP]
+> Ephemeral execution works well with other non-Node.js projects. No local installation is required—only Node.js and a supported package manager.
+
+> [!TIP]
+> If you're using a Node.js project, consider installing `ai-ctrf` as a development dependency instead. This can be executed with `pnpm exec` or `npm exec`.
+
 ## OpenAI
 
 Run the following command:
 
 ```bash
-npx ai-ctrf openai <path-to-ctrf-report>
+ai-ctrf openai <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -109,7 +154,7 @@ A message is sent to OpenAI for each failed test.
 Run the following command:
 
 ```bash
-npx ai-ctrf azure-openai <path-to-ctrf-report>
+ai-ctrf azure-openai <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -153,7 +198,7 @@ A message is sent to Azure OpenAI for each failed test.
 Run the following command:
 
 ```bash
-npx ai-ctrf claude <path-to-ctrf-report>
+ai-ctrf claude <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -191,7 +236,7 @@ A message is sent to Claude for each failed test.
 Run the following command:
 
 ```bash
-npx ai-ctrf grok <path-to-ctrf-report>
+ai-ctrf grok <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -229,7 +274,7 @@ A message is sent to Grok for each failed test.
 Run the following command:
 
 ```bash
-npx ai-ctrf deepseek <path-to-ctrf-report>
+ai-ctrf deepseek <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -267,7 +312,7 @@ A message is sent to DeepSeek for each failed test.
 Run the following command:
 
 ```bash
-npx ai-ctrf mistral <path-to-ctrf-report>
+ai-ctrf mistral <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -309,7 +354,7 @@ Mistral offers free API credits upon signup, making it a great option to test th
 Run the following command:
 
 ```bash
-npx ai-ctrf gemini <path-to-ctrf-report>
+ai-ctrf gemini <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -351,7 +396,7 @@ Google offers free API credits for Gemini, providing a cost-effective way to try
 Run the following command:
 
 ```bash
-npx ai-ctrf perplexity <path-to-ctrf-report>
+ai-ctrf perplexity <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -391,7 +436,7 @@ A message is sent to Perplexity for each failed test.
 Run the following command:
 
 ```bash
-npx ai-ctrf openrouter <path-to-ctrf-report>
+ai-ctrf openrouter <path-to-ctrf-report>
 ```
 
 An AI summary for each failed test will be added to your test report.
@@ -510,7 +555,7 @@ Using Ollama with OpenAI-compatible endpoint:
 ollama serve
 
 # Run AI test reporter
-npx ai-ctrf custom ctrf-report.json --url http://localhost:11434/v1 --model llama2
+ai-ctrf custom ctrf-report.json --url http://localhost:11434/v1 --model llama2
 ```
 
 ## Structured JSON Analysis
@@ -535,28 +580,28 @@ Add the `--json-analysis` flag to any model command:
 
 ```bash
 # OpenAI
-npx ai-ctrf openai ctrf-report.json --json-analysis
+ai-ctrf openai ctrf-report.json --json-analysis
 
 # Claude
-npx ai-ctrf claude ctrf-report.json --json-analysis
+ai-ctrf claude ctrf-report.json --json-analysis
 
 # Any other model
-npx ai-ctrf <model> ctrf-report.json --json-analysis
+ai-ctrf <model> ctrf-report.json --json-analysis
 ```
 
 ### Example Use Cases
 
 ```bash
 # Parse specific fields in CI/CD
-result=$(npx ai-ctrf openai report.json --json-analysis --log false)
+result=$(ai-ctrf openai report.json --json-analysis --log false)
 echo "$result" | jq '.recommendations'
 
 # Send to monitoring or analytics tools
-npx ai-ctrf openai report.json --json-analysis --log false | \
+ai-ctrf openai report.json --json-analysis --log false | \
   curl -X POST https://api.example.com/test-analysis
 
 # Save for later processing
-npx ai-ctrf openai report.json --json-analysis > analysis.json
+ai-ctrf openai report.json --json-analysis > analysis.json
 ```
 
 ## Additional Context Options
@@ -567,12 +612,12 @@ The `--additionalSystemPromptContext` and `--additionalPromptContext` options al
 
 ```bash
 # Add project-specific context
-npx ai-ctrf openai ctrf-report.json \
+ai-ctrf openai ctrf-report.json \
   --additionalPromptContext "This is from our production environment running on AWS" \
   --additionalSystemPromptContext "Focus on database connection and timeout issues"
 
 # Add team-specific guidelines
-npx ai-ctrf claude ctrf-report.json \
+ai-ctrf claude ctrf-report.json \
   --additionalSystemPromptContext "Our team uses React 18 and follows the Airbnb style guide" \
   --additionalPromptContext "Tests are running in CI/CD pipeline on GitHub Actions"
 ```
@@ -655,7 +700,3 @@ Add a Pull Request comment with your AI summary:
 Send a Slack message with your AI test summary:
 
 ![Slack](assets/slack.png)
-
-## Support Us
-
-If you find this project useful, consider giving it a GitHub star ⭐ It means a lot to us.
