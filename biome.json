@@ -8,6 +8,7 @@
 	"files": {
 		"includes": [
 			"**",
+			"!ctrf",
 			"!dist",
 			"!coverage",
 			"!ctrf-reports",
