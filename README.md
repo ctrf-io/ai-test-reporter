@@ -62,48 +62,46 @@ Use [junit-to-ctrf](https://github.com/ctrf-io/junit-to-ctrf) to convert a JUnit
 
 ## Installation
 
-### Global installation
+## Usage
 
-Install `ai-ctrf` globally:
+### Without Installation
 
-```sh
-pnpm add -g ai-ctrf
+Use `npx` or `pnpm dlx` to run the CLI without installing:
+
+```bash
+npx ai-ctrf@0.0.17 openai report.json
 ```
 
-Or with npm:
-
-```sh
-npm install -g ai-ctrf
+```bash
+pnpm dlx ai-ctrf@0.0.17 openai report.json
 ```
 
-Then run:
+### Global Installation
 
-```sh
-ai-ctrf results ./ctrf-report.json --project CCS --issueTypeId 10000
+Or install globally for repeated use:
+
+```bash [npm]
+npm install -g ai-ctrf@0.0.17
 ```
 
-### Ephemeral execution
-
-Use your package manager's executable runner:
-
-```sh
-pnpm dlx ai-ctrf@0.0.17 results ./ctrf-report.json --project CCS --issueTypeId 10000
+```bash [pnpm]
+pnpm add -g ai-ctrf@0.0.17
 ```
 
-Or with npm:
+After global installation, use the `ai-ctrf` command:
 
-```sh
-npx ai-ctrf@0.0.17 results ./ctrf-report.json --project CCS --issueTypeId 10000
+```bash
+ai-ctrf openai report.json
 ```
 
 > [!NOTE]
-> For ephemeral execution, it is recommended to pin the package version (for example, `ai-ctrf@0.0.17`).
+> When running without installation, it is recommended to pin the package version (for example, `ai-ctrf@0.0.17`).
 
 > [!TIP]
-> Ephemeral execution works well with other non-Node.js projects. No local installation is required—only Node.js and a supported package manager.
+> With `npx` or `pnpm dlx`, no local installation is required, only Node.js and a supported package manager.
 
 > [!TIP]
-> If you're using a Node.js project, consider installing `ai-ctrf` as a development dependency instead. This can be executed with `pnpm exec` or `npm exec`.
+> If you're using a Node.js project, consider installing `ai-ctrf` as a development dependency instead. This can be executed with `npm exec` or `pnpm exec`.
 
 ## OpenAI
 
