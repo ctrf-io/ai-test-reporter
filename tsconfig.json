@@ -10,5 +10,13 @@
 		"declarationDir": "./dist",
 		"forceConsistentCasingInFileNames": true,
 		"types": ["node"]
-	}
+	},
+	"include": ["src/**/*"],
+	"exclude": [
+		"tests/**/*",
+		"node_modules",
+		"dist",
+		"coverage",
+		"vitest.config.ts"
+	]
 }
