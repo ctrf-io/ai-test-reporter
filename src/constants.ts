@@ -4,7 +4,7 @@ Avoid:
  - Including code snippets or technical implementation details
  - Generic testing advice or best practices
  - Bullet points, headings, or special formatting
- - Repeating individual test failure details`
+ - Repeating individual test failure details`;
 
 export const FAILED_TEST_SUMMARY_SYSTEM_PROMPT = `You are tasked with analyzing a specific test failure from a CTRF report. Your goal is to generate a clear, actionable summary that helps developers understand and fix the issue quickly.
 
@@ -20,7 +20,7 @@ Avoid:
 - Adding generic conclusions or advice
 - Using bullet points, headings, or special formatting
 - Making assumptions beyond the provided information
-- Including implementation details or debugging steps`
+- Including implementation details or debugging steps`;
 
 export const FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT = `You will receive a CTRF report test object containing an error message and a stack trace. Your task is to generate a clear and concise summary of the failure, specifically designed to assist a human in debugging the issue. The summary should:
 - It is critical that you do not alter or interpret the error message or stack trace; instead, focus on analyzing the exact content provided.
@@ -32,4 +32,4 @@ export const FAILED_TEST_SUMMARY_SYSTEM_PROMPT_CURRENT = `You will receive a CTR
 Avoid:
 - Including any code in your response.
 - Adding generic conclusions or advice such as "By following these steps..."
-- headings, bullet points, or special formatting.`
+- headings, bullet points, or special formatting.`;

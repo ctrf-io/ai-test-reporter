@@ -1,81 +1,73 @@
 {
-  "name": "ai-ctrf",
-  "version": "0.0.17",
-  "description": "Generate AI summaries of test results using a wide range of AI models like OpenAI, Anthropic, Gemini, Mistral, Grok, DeepSeek, Azure, Perplexity, OpenRouter, and custom OpenAI-compatible APIs",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .ts --fix",
-    "lint-check": "eslint . --ext .ts",
-    "format": "prettier --write .",
-    "format-check": "prettier --check .",
-    "all": "npm run build && npm run lint && npm run format-check"
-  },
-  "bin": {
-    "ai-ctrf": "./dist/index.js"
-  },
-  "engines": {
-    "node": ">=20.19.0"
-  },
-  "files": [
-    "dist/",
-    "README.md"
-  ],
-  "keywords": [
-    "ai",
-    "ctrf",
-    "test-reporter",
-    "openai",
-    "anthropic",
-    "google",
-    "mistral",
-    "grok",
-    "deepseek",
-    "azure",
-    "perplexity",
-    "openrouter"
-  ],
-  "author": "Matthew Poulton-White",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ctrf-io/ai-test-reporter.git"
-  },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "homepage": "https://ctrf.io",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "25.9.2",
-    "@types/yargs": "17.0.35",
-    "@typescript-eslint/eslint-plugin": "6.15.0",
-    "@typescript-eslint/parser": "6.15.0",
-    "eslint": "8.54.0",
-    "eslint-config-prettier": "9.0.0",
-    "eslint-config-standard-with-typescript": "43.0.1",
-    "eslint-plugin-import": "2.29.0",
-    "eslint-plugin-n": "16.3.1",
-    "eslint-plugin-prettier": "5.0.1",
-    "eslint-plugin-promise": "6.1.1",
-    "prettier": "3.8.3",
-    "typescript": "6.0.3"
-  },
-  "dependencies": {
-    "@anthropic-ai/sdk": "0.27.3",
-    "@aws-sdk/client-bedrock-runtime": "3.1063.0",
-    "@google/generative-ai": "0.24.1",
-    "ctrf": "0.2.1",
-    "openai": "6.42.0",
-    "yargs": "18.0.0"
-  },
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  }
+	"name": "ai-ctrf",
+	"version": "0.0.17",
+	"description": "Generate AI summaries of test results using a wide range of AI models like OpenAI, Anthropic, Gemini, Mistral, Grok, DeepSeek, Azure, Perplexity, OpenRouter, and custom OpenAI-compatible APIs",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "biome lint --write . --unsafe",
+		"lint:check": "biome lint .",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"check": "biome check .",
+		"all": "npm run build && npm run lint && npm run format:check"
+	},
+	"bin": {
+		"ai-ctrf": "./dist/index.js"
+	},
+	"engines": {
+		"node": ">=20.19.0"
+	},
+	"files": [
+		"dist/",
+		"README.md"
+	],
+	"keywords": [
+		"ai",
+		"ctrf",
+		"test-reporter",
+		"openai",
+		"anthropic",
+		"google",
+		"mistral",
+		"grok",
+		"deepseek",
+		"azure",
+		"perplexity",
+		"openrouter"
+	],
+	"author": "Matthew Poulton-White",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ctrf-io/ai-test-reporter.git"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"homepage": "https://ctrf.io",
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "2.4.16",
+		"@types/node": "25.9.2",
+		"@types/yargs": "17.0.35",
+		"typescript": "6.0.3"
+	},
+	"dependencies": {
+		"@anthropic-ai/sdk": "0.27.3",
+		"@aws-sdk/client-bedrock-runtime": "3.1063.0",
+		"@google/generative-ai": "0.24.1",
+		"ctrf": "0.2.1",
+		"openai": "6.42.0",
+		"yargs": "18.0.0"
+	},
+	"exports": {
+		".": {
+			"require": "./dist/index.js",
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	}
 }
