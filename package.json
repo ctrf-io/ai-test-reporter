@@ -2,19 +2,24 @@
 	"name": "ai-ctrf",
 	"version": "0.0.17",
 	"description": "Generate AI summaries of test results using a wide range of AI models like OpenAI, Anthropic, Gemini, Mistral, Grok, DeepSeek, Azure, Perplexity, OpenRouter, and custom OpenAI-compatible APIs",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"scripts": {
-		"build": "tsc",
-		"test": "vitest run",
+		"build": "tsup",
+		"build:check": "tsc -p . --noEmit",
+		"build:watch": "tsup --watch",
+		"clean": "rm -rf dist && rm -rf coverage && rm -rf ctrf",
+		"test": "npm run build && vitest run",
 		"test:watch": "vitest",
-		"test:coverage": "vitest run --coverage",
+		"test:coverage": "npm run build && vitest run --coverage",
 		"lint": "biome lint --write . --unsafe",
 		"lint:check": "biome lint .",
 		"format": "biome format --write .",
 		"format:check": "biome format .",
 		"check": "biome check .",
-		"all": "npm run lint:check && npm run format:check && npm run test:coverage && npm run build"
+		"all": "npm run build:check && npm run lint:check && npm run format:check && npm run test:coverage && npm run build"
 	},
 	"bin": {
 		"ai-ctrf": "./dist/index.js"
@@ -52,11 +57,12 @@
 	"homepage": "https://ctrf.io",
 	"license": "MIT",
 	"devDependencies": {
-		"@d2t/vitest-ctrf-json-reporter": "1.3.0",
 		"@biomejs/biome": "2.4.16",
+		"@d2t/vitest-ctrf-json-reporter": "1.3.0",
 		"@types/node": "25.9.2",
 		"@types/yargs": "17.0.35",
 		"@vitest/coverage-v8": "4.1.8",
+		"tsup": "8.5.1",
 		"typescript": "6.0.3",
 		"vitest": "4.1.8"
 	},
@@ -70,9 +76,8 @@
 	},
 	"exports": {
 		".": {
-			"require": "./dist/index.js",
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts"
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
 		}
 	}
 }
