@@ -1,22 +1,26 @@
 {
 	"compilerOptions": {
-		"target": "es2016",
-		"module": "commonjs",
+		"target": "ES2023",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
 		"strict": true,
 		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"declaration": true,
 		"declarationDir": "./dist",
 		"forceConsistentCasingInFileNames": true,
-		"types": ["node"]
+		"types": ["node"],
+		"ignoreDeprecations": "6.0"
 	},
 	"include": ["src/**/*"],
 	"exclude": [
 		"tests/**/*",
-		"node_modules",
-		"dist",
-		"coverage",
+		"node_modules/**/*",
+		"dist/**/*",
+		"coverage/**/*",
+		"ctrf/**/*",
 		"vitest.config.ts"
 	]
 }
