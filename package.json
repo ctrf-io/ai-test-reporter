@@ -72,7 +72,7 @@
 		"@google/generative-ai": "0.24.1",
 		"ctrf": "0.2.1",
 		"openai": "6.45.0",
-		"yargs": "18.0.0"
+		"yargs": "18.1.0"
 	},
 	"exports": {
 		".": {
