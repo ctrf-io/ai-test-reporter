@@ -68,7 +68,7 @@
 	},
 	"dependencies": {
 		"@anthropic-ai/sdk": "0.110.0",
-		"@aws-sdk/client-bedrock-runtime": "3.1079.0",
+		"@aws-sdk/client-bedrock-runtime": "3.1097.0",
 		"@google/generative-ai": "0.24.1",
 		"ctrf": "0.2.1",
 		"openai": "6.45.0",
