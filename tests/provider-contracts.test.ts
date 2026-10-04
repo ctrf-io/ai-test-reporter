@@ -182,67 +182,65 @@ const chatProviders = [
 	},
 ];
 
-describe.each(chatProviders)("$name wire contract", ({
-	name,
-	url,
-	route,
-	invoke,
-}) => {
-	const intercept = () => {
-		const scope = nock(url).matchHeader(
-			name === "Azure" ? "api-key" : "authorization",
-			name === "Azure" ? "offline-dummy-key" : "Bearer offline-dummy-key",
-		);
-		if (name === "OpenRouter")
-			scope
-				.matchHeader("http-referer", "https://offline.example")
-				.matchHeader("x-title", "AI Test Reporter");
-		const request = scope.post(route, (body: Record<string, unknown>) => {
-			expect(body).toMatchObject({
-				model: name === "Azure" ? "fixture-deployment" : "fixture-model",
-				max_tokens: 64,
-				temperature: 0.2,
-				messages: [
-					{ role: "system", content: "Explain failure" },
-					{ role: "user", content: "failed assertion" },
-				],
+describe.each(chatProviders)(
+	"$name wire contract",
+	({ name, url, route, invoke }) => {
+		const intercept = () => {
+			const scope = nock(url).matchHeader(
+				name === "Azure" ? "api-key" : "authorization",
+				name === "Azure" ? "offline-dummy-key" : "Bearer offline-dummy-key",
+			);
+			if (name === "OpenRouter")
+				scope
+					.matchHeader("http-referer", "https://offline.example")
+					.matchHeader("x-title", "AI Test Reporter");
+			const request = scope.post(route, (body: Record<string, unknown>) => {
+				expect(body).toMatchObject({
+					model: name === "Azure" ? "fixture-deployment" : "fixture-model",
+					max_tokens: 64,
+					temperature: 0.2,
+					messages: [
+						{ role: "system", content: "Explain failure" },
+						{ role: "user", content: "failed assertion" },
+					],
+				});
+				return true;
 			});
-			return true;
+			return name === "Azure"
+				? request.query({ "api-version": "2024-05-01-preview" })
+				: request;
+		};
+		it("serializes options and parses an assistant response with the real SDK", async () => {
+			intercept().reply(200, chatResponse());
+			expect(
+				await invoke(
+					"Explain failure",
+					"\u001b[31mfailed assertion\u001b[39m",
+					args,
+				),
+			).toBe("Check the expected value.");
 		});
-		return name === "Azure"
-			? request.query({ "api-version": "2024-05-01-preview" })
-			: request;
-	};
-	it("serializes options and parses an assistant response with the real SDK", async () => {
-		intercept().reply(200, chatResponse());
-		expect(
-			await invoke(
-				"Explain failure",
-				"\u001b[31mfailed assertion\u001b[39m",
-				args,
-			),
-		).toBe("Check the expected value.");
-	});
-	it("returns null when the assistant has no textual content", async () => {
-		intercept().reply(200, chatResponse(null));
-		expect(
-			await invoke("Explain failure", "failed assertion", args),
-		).toBeNull();
-	});
-	it("handles an API authentication error without throwing", async () => {
-		intercept().reply(401, {
-			error: {
-				message: "Invalid dummy key",
-				type: "authentication_error",
-				code: "invalid_api_key",
-			},
+		it("returns null when the assistant has no textual content", async () => {
+			intercept().reply(200, chatResponse(null));
+			expect(
+				await invoke("Explain failure", "failed assertion", args),
+			).toBeNull();
 		});
-		expect(
-			await invoke("Explain failure", "failed assertion", args),
-		).toBeNull();
-		expect(console.error).toHaveBeenCalled();
-	});
-});
+		it("handles an API authentication error without throwing", async () => {
+			intercept().reply(401, {
+				error: {
+					message: "Invalid dummy key",
+					type: "authentication_error",
+					code: "invalid_api_key",
+				},
+			});
+			expect(
+				await invoke("Explain failure", "failed assertion", args),
+			).toBeNull();
+			expect(console.error).toHaveBeenCalled();
+		});
+	},
+);
 
 describe("other provider wire contracts", () => {
 	it("parses Anthropic text blocks and ignores thinking blocks", async () => {
@@ -494,13 +492,13 @@ describe("AI report behavior through the real OpenAI SDK", () => {
 			analysis,
 		);
 	});
-	it.each([
-		"not JSON",
-		JSON.stringify({ summary: 123 }),
-	])("rejects malformed structured analysis: %s", async (content) => {
-		nock("https://api.openai.com")
-			.post("/v1/chat/completions")
-			.reply(200, chatResponse(content));
-		expect(await generateJsonSummary(report(), "openai", args)).toBeNull();
-	});
+	it.each(["not JSON", JSON.stringify({ summary: 123 })])(
+		"rejects malformed structured analysis: %s",
+		async (content) => {
+			nock("https://api.openai.com")
+				.post("/v1/chat/completions")
+				.reply(200, chatResponse(content));
+			expect(await generateJsonSummary(report(), "openai", args)).toBeNull();
+		},
+	);
 });

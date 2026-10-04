@@ -98,7 +98,7 @@ ai-ctrf openai report.json
 > When running without installation, it is recommended to pin the package version (for example, `ai-ctrf@0.0.17`).
 
 > [!TIP]
-> With `npx` or `pnpm dlx`, no local installation is required, only Node.js and a supported package manager.
+> With `npx` or `pnpm dlx`, no local installation is required, only Node.js 22.12 or newer and a supported package manager.
 
 > [!TIP]
 > If you're using a Node.js project, consider installing `ai-ctrf` as a development dependency instead. This can be executed with `npm exec` or `pnpm exec`.
