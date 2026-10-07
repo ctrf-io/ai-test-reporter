@@ -698,3 +698,9 @@ Add a Pull Request comment with your AI summary:
 Send a Slack message with your AI test summary:
 
 ![Slack](assets/slack.png)
+
+## Identity and lineage
+
+CTRF identity fields are preserved when reading and presenting reports: document `reportId`, logical `runId`, environment `shardId`, test `testId`/`executionId`, retry `attemptId` and attachment `attachmentId`. Existing reports without these optional fields remain supported. Display labels are independent of identity.
+
+AI enrichment renews the report ID when saved content changes and preserves run and nested identities. Saving unchanged content keeps the same artifact ID.
