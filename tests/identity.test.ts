@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { saveUpdatedReport, validateCtrfFile } from "../src/common";
 const identityReport = () => ({
 	reportFormat: "CTRF",
-	specVersion: "0.1.0",
+	specVersion: "0.2.0",
 	reportId: "11111111-1111-4111-8111-111111111111",
 	runId: "run",
 	results: {
@@ -26,6 +26,7 @@ const identityReport = () => ({
 				name: "same",
 				testId: "logical",
 				executionId: "execution",
+				attemptId: "final-attempt",
 				status: "passed",
 				duration: 1,
 				retries: 1,

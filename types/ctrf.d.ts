@@ -33,6 +33,7 @@ export interface Summary {
 export interface CtrfTest {
 	testId?: string;
 	executionId?: string;
+	attemptId?: string;
 	retryAttempts?: RetryAttempt[];
 	attachments?: Attachment[];
 	name: string;
