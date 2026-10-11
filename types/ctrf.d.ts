@@ -1,4 +1,11 @@
+import type { Attachment, RetryAttempt } from "ctrf";
 export interface CtrfReport {
+	reportFormat?: string;
+	specVersion?: string;
+	generatedBy?: string;
+	reportId?: string;
+	runId?: string;
+	timestamp?: string;
 	results: Results;
 }
 
@@ -24,6 +31,11 @@ export interface Summary {
 }
 
 export interface CtrfTest {
+	testId?: string;
+	executionId?: string;
+	attemptId?: string;
+	retryAttempts?: RetryAttempt[];
+	attachments?: Attachment[];
 	name: string;
 	status: CtrfTestState;
 	duration: number;
@@ -49,6 +61,7 @@ export interface CtrfTest {
 }
 
 export interface CtrfEnvironment {
+	shardId?: string;
 	appName?: string;
 	appVersion?: string;
 	osPlatform?: string;

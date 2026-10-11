@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
 import type { CtrfReport } from "../types/ctrf";
 import fs from "node:fs";
 
@@ -19,6 +21,13 @@ export function validateCtrfFile(filePath: string): CtrfReport | null {
 
 export function saveUpdatedReport(filePath: string, report: CtrfReport): void {
 	try {
+		const previous = fs.existsSync(filePath)
+			? JSON.parse(fs.readFileSync(filePath, "utf8"))
+			: undefined;
+		if (!isDeepStrictEqual(previous, report)) {
+			report.reportId = randomUUID();
+			report.timestamp = new Date().toISOString();
+		}
 		fs.writeFileSync(filePath, JSON.stringify(report, null, 2), "utf8");
 		console.log(`Updated report saved to ${filePath}`);
 	} catch (error) {
