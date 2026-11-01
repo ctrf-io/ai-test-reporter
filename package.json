@@ -63,7 +63,7 @@
 		"@smithy/node-http-handler": "4.12.1",
 		"@types/node": "26.6.5",
 		"@types/yargs": "17.0.35",
-		"@vitest/coverage-v8": "5.0.3",
+		"@vitest/coverage-v8": "5.0.5",
 		"nock": "14.0.17",
 		"tsup": "8.5.1",
 		"typescript": "npm:@typescript/typescript6@6.0.2",
