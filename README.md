@@ -566,11 +566,11 @@ The `--json-analysis` flag generates a structured breakdown of your test failure
 
 ```json
 {
-  "summary": "High-level overview of what went wrong",
-  "code_issues": "Detailed description of code-related problems",
-  "timeout_issues": "Detailed description of timeout and performance issues",
-  "application_issues": "Detailed description of application-level problems",
-  "recommendations": "Actionable recommendations to fix the issues"
+	"summary": "High-level overview of what went wrong",
+	"code_issues": "Detailed description of code-related problems",
+	"timeout_issues": "Detailed description of timeout and performance issues",
+	"application_issues": "Detailed description of application-level problems",
+	"recommendations": "Actionable recommendations to fix the issues"
 }
 ```
 
@@ -651,31 +651,31 @@ You are responsible for any charges incurred from using the AI models. Make sure
 
 ```json
 {
-  "results": {
-    "tool": {
-      "name": "AnyFramework"
-    },
-    "summary": {
-      "tests": 1,
-      "passed": 0,
-      "failed": 1,
-      "pending": 0,
-      "skipped": 0,
-      "other": 1,
-      "start": 1722511783500,
-      "stop": 1722511804528
-    },
-    "tests": [
-      {
-        "name": "should display profile information",
-        "status": "failed",
-        "duration": 800,
-        "message": "Assertion Failure: profile mismatch",
-        "trace": "ProfileTest.js:45...",
-        "ai": "The test failed because there was a profile mismatch at line 45 of the ProfileTest.js file. To resolve this issue,   review the code at line 45 to ensure that the expected profile information matches the actual data being displayed. Check for any discrepancies and make necessary adjustments to align the expected and actual profile information."
-      }
-    ]
-  }
+	"results": {
+		"tool": {
+			"name": "AnyFramework"
+		},
+		"summary": {
+			"tests": 1,
+			"passed": 0,
+			"failed": 1,
+			"pending": 0,
+			"skipped": 0,
+			"other": 1,
+			"start": 1722511783500,
+			"stop": 1722511804528
+		},
+		"tests": [
+			{
+				"name": "should display profile information",
+				"status": "failed",
+				"duration": 800,
+				"message": "Assertion Failure: profile mismatch",
+				"trace": "ProfileTest.js:45...",
+				"ai": "The test failed because there was a profile mismatch at line 45 of the ProfileTest.js file. To resolve this issue,   review the code at line 45 to ensure that the expected profile information matches the actual data being displayed. Check for any discrepancies and make necessary adjustments to align the expected and actual profile information."
+			}
+		]
+	}
 }
 ```
 
