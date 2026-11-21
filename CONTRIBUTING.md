@@ -49,7 +49,6 @@ Your contributions are sincerely appreciated. We want to make contributing to th
 
 Thank you for your interest in contributing
 
-
 ## TypeScript toolchain
 
 The `tsc` command uses native TypeScript 7.0.2 through the exact
@@ -60,3 +59,10 @@ aliases separate when updating dependencies. Both are development dependencies
 and do not change the package’s production Node requirement.
 
 See [Microsoft’s side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0).
+
+## Offline dependency checks
+
+Run `npm run all` to exercise the real provider SDKs against synthetic HTTP
+responses, with unmocked requests blocked. Development requires Node.js 22.20.0
+or newer for Nock 15; the published package still supports Node.js 22.12.0.
+See [the offline test scope and limitations](tests/README.md).

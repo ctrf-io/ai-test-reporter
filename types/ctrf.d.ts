@@ -1,5 +1,12 @@
-import type { Attachment, RetryAttempt } from "ctrf";
+import type {
+	AssertionFailure,
+	Attachment,
+	GlobalError,
+	Provenance,
+	RetryAttempt,
+} from "ctrf";
 export interface CtrfReport {
+	provenance?: Provenance;
 	reportFormat?: string;
 	specVersion?: string;
 	generatedBy?: string;
@@ -10,6 +17,7 @@ export interface CtrfReport {
 }
 
 export interface Results {
+	errors?: GlobalError[];
 	tool: Tool;
 	summary: Summary;
 	tests: CtrfTest[];
@@ -31,6 +39,9 @@ export interface Summary {
 }
 
 export interface CtrfTest {
+	description?: string;
+	threadId?: string;
+	assertionFailures?: AssertionFailure[];
 	testId?: string;
 	executionId?: string;
 	attemptId?: string;
