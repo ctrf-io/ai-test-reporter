@@ -60,3 +60,16 @@ test extracts the following JSON rather than treating stdout as pure JSON.
 Failed-test processing also currently removes existing test `extra` metadata.
 Those behaviors predate this test change and need separate fixes; this suite
 checks preservation of passed tests, outcome counts, and the report version.
+
+## Anthropic 1.x migration candidate
+
+The provider SDK upgrade is deliberately separate from CTRF 0.3.0 adoption.
+Anthropic 1.x changes the default API version to 2026-10-21 and removes the
+`temperature` parameter accepted by this adapter. The unmodified adapter fails
+type-checking, and the existing Anthropic success contract fails; other exercised
+provider contracts pass. Do not treat this candidate as release-ready or weaken
+those assertions. Migration must resolve the CLI temperature behavior and review
+the Messages request/response contract before updating these fixtures. Offline
+tests cannot establish live authentication, model availability or output quality.
+
+See the [upstream breaking release](https://github.com/anthropics/anthropic-sdk-typescript/releases/tag/sdk-v1.0.0).
